@@ -42,8 +42,8 @@ export const BentoGrid = () => {
           trigger: containerRef.current,
           start: "top 80%",
         },
-        y: 100,
         opacity: 0,
+        scale: 0.9,
         stagger: 0.1,
         duration: 1.2,
         ease: "power4.out",
@@ -88,80 +88,127 @@ export const BentoGrid = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 h-auto md:h-[900px]">
+        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 h-auto md:h-[700px]">
           
-          {/* Big Card: Compute */}
+          {/* Big Card: Logic Transmutation */}
           <motion.div style={{ y: y1 }} className="bento-card md:col-span-2 md:row-span-2">
             <Magnetic strength={0.05}>
-              <div className="glass-refraction h-full rounded-[2rem] p-10 flex flex-col justify-between border border-white/10 group hover:border-accent/30 transition-all duration-500">
+              <div className="glass-refraction h-full rounded-[2px] p-8 flex flex-col justify-between border border-white/10 group hover:border-accent/30 transition-all duration-500 bg-black/40 backdrop-blur-3xl relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10 pointer-events-none">
+                   <div className="absolute inset-0 bg-[linear-gradient(rgba(41,98,255,0.05)_1px,transparent_1px)] bg-[size:100%_4px]" />
+                </div>
+
                 <div>
-                  <CardHeader tag="Compute" title="Neural Mesh Architecture" code="0x8F_NEXUS" />
-                  <p className="text-zinc-500 text-sm max-w-sm leading-relaxed font-light">
-                    Our proprietary decentralized compute fabric allows for horizontal scaling without the traditional overhead of synchronized states.
+                  <CardHeader tag="The_Alchemy" title="Logic Transmutation" code="LEGACY_v1" />
+                  <p className="text-zinc-500 text-[13px] max-w-sm leading-relaxed font-light">
+                    Transmuting complexity into legacy. Every line is an incantation, every architecture a testament to mastery.
                   </p>
                 </div>
-                <div className="relative h-64 mt-12 bg-black/50 rounded-2xl overflow-hidden border border-white/5 p-4 flex flex-col gap-2">
-                   <div className="flex justify-between text-[8px] font-mono text-zinc-400 opacity-80">
-                     <span>[ STREAMING_DATA ]</span>
-                     <span>BUFFER: 98%</span>
+
+                {/* CENTRAL VISUALIZER: Compact Neural Core */}
+                <div className="relative flex-1 flex items-center justify-center my-4">
+                   <motion.div 
+                     animate={{ rotate: 360 }}
+                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                     className="relative w-24 h-24 border border-white/[0.05] rounded-full flex items-center justify-center"
+                   >
+                      <div className="absolute inset-0 border border-accent/10 rounded-full scale-75 opacity-20" />
+                      <div className="absolute flex flex-col items-center">
+                         <div className="w-1 h-1 bg-accent rounded-full shadow-[0_0_8px_var(--accent)]" />
+                      </div>
+                   </motion.div>
+                </div>
+
+                <div className="relative bg-black/60 rounded-sm border border-white/5 p-5 flex flex-col gap-4">
+                   <div className="flex justify-between items-center">
+                      <span className="text-[7px] font-mono text-zinc-400 opacity-80 uppercase tracking-widest">[ ACTIVE_MISSIONS ]</span>
                    </div>
-                  <div className="absolute inset-0 bg-grid-3d opacity-10 scale-50 pointer-events-none" />
-                  <div className="relative z-10 flex flex-col gap-2 mt-4">
-                    {[1, 2, 3, 4].map((i) => (
-                      <motion.div 
-                        key={i}
-                        initial={{ width: "30%" }}
-                        animate={{ width: ["30%", "70%", "40%", "90%", "30%"] }}
-                        transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}
-                        className="h-1 bg-accent/10 rounded-full relative overflow-hidden"
-                      >
-                        <div className="absolute inset-0 bg-accent w-1/4 animate-[shimmer_2s_infinite]" />
-                      </motion.div>
-                    ))}
-                  </div>
+                   
+                   <div className="grid grid-cols-1 gap-1.5">
+                      {[
+                        { label: "DEPLOYING_FOUNDATIONS", status: "DONE" },
+                        { label: "TRANSCENDING_PARADIGMS", status: "RUNNING" },
+                      ].map((m, i) => (
+                        <div key={i} className="flex items-center justify-between">
+                           <div className="flex items-center gap-2">
+                              <div className={`w-1 h-1 ${m.status === "DONE" ? "bg-accent" : "bg-accent animate-pulse"}`} />
+                              <span className="text-[7px] font-mono text-zinc-500 uppercase">{m.label}</span>
+                           </div>
+                           <span className="text-[6px] font-mono text-zinc-800">[{m.status}]</span>
+                        </div>
+                      ))}
+                   </div>
                 </div>
               </div>
             </Magnetic>
           </motion.div>
 
-          {/* Medium Card: Intelligence */}
+          {/* Medium Card: Equivalent Exchange */}
           <motion.div style={{ y: y2 }} className="bento-card md:col-span-2 md:row-span-1">
              <Magnetic strength={0.1}>
-                <div className="glass-refraction h-full rounded-[2rem] p-10 flex flex-col justify-between border border-white/10 hover:border-accent/40 transition-all">
+                <div className="glass-refraction h-full rounded-[2px] p-8 flex flex-col justify-between border border-white/10 bg-black/40 backdrop-blur-3xl hover:border-accent/40 transition-all relative overflow-hidden">
+                  <div className="absolute inset-0 bg-grid-3d opacity-5 pointer-events-none" />
+                  
                   <div className="flex justify-between items-start">
-                    <CardHeader tag="Intelligence" title="Predictive Latency" code="LAT_01" />
-                    <span className="text-[10px] font-mono text-accent">[ ONLINE ]</span>
+                    <CardHeader tag="The_Law" title="Equivalent Exchange" code="BAL_08" />
+                    <span className="text-[9px] font-mono text-accent tracking-widest">[ HARMONIZED ]</span>
                   </div>
-                  <div className="flex gap-4 items-end">
-                    <div className="text-5xl font-black tracking-tighter text-white">0.02<span className="text-lg text-accent ml-1 uppercase">ms</span></div>
-                    <span className="text-[10px] font-mono text-zinc-600 mb-2 uppercase">[ GLOBAL_AVG ]</span>
+
+                  <div className="flex items-center justify-between gap-8">
+                    <p className="text-zinc-500 text-[11px] font-light leading-relaxed max-w-[220px]">
+                      Every feature requires equal consideration of performance, maintainability, and scalability. Pure balance.
+                    </p>
+                    <div className="text-4xl font-black tracking-tighter text-white uppercase italic shrink-0">
+                       Zero<span className="block text-[10px] not-italic text-accent tracking-[0.4em] mt-1">Compromise</span>
+                    </div>
                   </div>
                 </div>
              </Magnetic>
           </motion.div>
 
-          {/* Small Card: Security */}
+          {/* Small Card: Vertical Infinity */}
           <motion.div style={{ y: y3 }} className="bento-card md:col-span-1 md:row-span-1">
             <Magnetic strength={0.1}>
-              <div className="glass-refraction h-full rounded-[2rem] p-8 flex flex-col justify-between border border-white/10 hover:border-white/20 transition-all">
-                <CardHeader tag="Security" title="Hardened Nodes" code="SEC_ALPHA" />
-                <div className="font-mono text-[9px] text-zinc-600 space-y-1">
-                  <div className="flex justify-between"><span>[ ENCRYPTION ]</span> <span className="text-white">AES-256</span></div>
-                  <div className="flex justify-between"><span>[ PROTOCOL ]</span> <span className="text-white">QUANTUM-RES</span></div>
-                  <div className="flex justify-between"><span>[ STATUS ]</span> <span className="text-green-500">SECURE</span></div>
+              <div className="glass-refraction h-full rounded-[2px] p-6 flex flex-col justify-between border border-white/10 bg-black/40 backdrop-blur-3xl hover:border-white/20 transition-all group/card">
+                <div>
+                  <CardHeader tag="The_Cycle" title="Vertical Infinity" code="8_LOOP" />
+                  <p className="text-zinc-500 text-[10px] font-light leading-tight mt-2 uppercase tracking-tighter">
+                    Code that stands the test of time. Continuous evolution without boundaries.
+                  </p>
+                </div>
+                <div className="relative h-12 flex items-center justify-center overflow-hidden border-y border-white/5 bg-white/[0.01] my-4">
+                   <span className="text-[32px] font-black text-white/5 tracking-tighter group-hover/card:text-accent/10 transition-colors">8</span>
+                </div>
+                <div className="font-mono text-[8px] text-zinc-600 space-y-1.5">
+                  <div className="flex justify-between"><span>[ CYCLE ]</span> <span className="text-white uppercase">Rebirth</span></div>
+                  <div className="flex justify-between"><span>[ STATUS ]</span> <span className="text-accent uppercase">Immortal</span></div>
                 </div>
               </div>
             </Magnetic>
           </motion.div>
 
-          {/* Small Card: Ecosystem */}
+          {/* Small Card: Chaos to Cosmos */}
           <motion.div style={{ y: y4 }} className="bento-card md:col-span-1 md:row-span-1">
             <Magnetic strength={0.1}>
-              <div className="glass-refraction h-full rounded-[2rem] p-8 flex flex-col justify-between border border-white/10 bg-accent/5 hover:bg-accent/10 transition-all">
-                <CardHeader tag="Connect" title="Open Protocol" code="SDK_v1" />
-                <button className="w-full py-3 bg-white text-black text-[9px] font-bold tracking-[0.2em] uppercase rounded-xl hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
-                  <span>[</span> READ_SDK <span>]</span>
-                </button>
+              <div className="glass-refraction h-full rounded-[2px] p-6 flex flex-col justify-between border border-white/10 bg-accent/5 backdrop-blur-3xl hover:bg-accent/10 transition-all">
+                <div>
+                  <CardHeader tag="The_Process" title="Chaos to Cosmos" code="DISTILL_01" />
+                  <p className="text-white/40 text-[10px] font-light leading-tight mt-2 uppercase tracking-tighter">
+                    Distilling complexity into elegant simplicity through technical precision.
+                  </p>
+                </div>
+                <div className="space-y-4 mt-4">
+                   <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                      <motion.div 
+                        animate={{ x: ["-100%", "100%"] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                        className="w-1/2 h-full bg-accent" 
+                      />
+                   </div>
+                   <div className="text-[7px] font-mono text-zinc-600 leading-tight uppercase">
+                      [ MISSION ]: STARTERS
+                   </div>
+                </div>
               </div>
             </Magnetic>
           </motion.div>

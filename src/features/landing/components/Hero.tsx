@@ -3,9 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { motion, Variants } from "framer-motion";
 import { gsap } from "@/lib/gsap";
-import { Button } from "@/components/ui/Button";
 import { Magnetic } from "@/components/ui/Magnetic";
-import { Starfield } from "./space/Starfield";
 
 const InfinityIcon = () => (
   <svg className="w-full h-full" viewBox="0 0 200 100" fill="none">
@@ -119,7 +117,6 @@ export const Hero = () => {
       id="hero"
       className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-black selection:bg-accent/30"
     >
-      <Starfield />
       <div className="grain-overlay" />
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-black" />
@@ -163,9 +160,9 @@ export const Hero = () => {
           </h1>
           <h1 className="relative text-7xl font-black tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-white uppercase italic">
             8eyond<br />
-            <span 
-              className="text-transparent bg-clip-text bg-gradient-to-r from-transparent via-white/50 to-transparent bg-[length:200%_100%] animate-shimmer-fast" 
-              style={{ 
+            <span
+              className="text-transparent bg-clip-text bg-gradient-to-r from-transparent via-white/50 to-transparent bg-[length:200%_100%] animate-shimmer-fast"
+              style={{
                 WebkitTextStroke: "1px rgba(255,255,255,0.2)",
                 textShadow: "0 0 20px rgba(6,182,212,0.1)"
               }}
@@ -187,32 +184,80 @@ export const Hero = () => {
           Pure logic. Boundless scale. Infinite vision.
         </motion.p>
 
-        <motion.div
-          custom={2}
-          variants={contentVariants}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-col items-center gap-12 sm:flex-row"
-        >
-          <Magnetic strength={0.3}>
-            <Button variant="primary" size="lg" className="group relative overflow-hidden rounded-full bg-white px-10 py-6 text-black transition-transform hover:scale-105 active:scale-95">
-              <span className="relative z-10 font-bold tracking-widest text-xs">INITIALIZE INTERFACE</span>
-              <div className="absolute inset-0 z-0 bg-accent translate-y-full transition-transform duration-300 group-hover:translate-y-0" />
-            </Button>
-          </Magnetic>
-
-          <Magnetic strength={0.3}>
-            <a href="#manifesto">
-              <Button variant="ghost" className="group flex items-center gap-4 font-mono text-xs tracking-widest text-zinc-400 hover:text-white transition-colors whitespace-nowrap">
-                <span className="h-px w-8 bg-zinc-800 transition-all group-hover:w-12 group-hover:bg-white flex-shrink-0" />
-                [ VIEW MANIFESTO ]
-              </Button>
-            </a>
-          </Magnetic>
-        </motion.div>
       </div>
 
+      {/* Scroll Indicator - Strictly pinned to bottom to avoid overlap */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-30"
+      >
+        <span className="text-[8px] font-mono text-zinc-700 uppercase tracking-[0.8em] whitespace-nowrap">
+          [ Scroll ]
+        </span>
+        <div className="w-px h-10 bg-white/5 relative overflow-hidden">
+          <motion.div
+            animate={{ y: ["-100%", "100%"] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            className="absolute top-0 left-0 w-full h-1/2 bg-accent shadow-[0_0_10px_var(--accent)]"
+          />
+        </div>
+      </motion.div>
+
       <div className="absolute bottom-0 left-0 right-0 h-[30vh] bg-grid-3d opacity-20 pointer-events-none" />
+
+      {/* Peripheral HUD Modules - Left Side */}
+      <div className="absolute left-8 top-1/2 -translate-y-1/2 flex flex-col gap-20 pointer-events-none hidden md:flex">
+        <div className="flex flex-col gap-2">
+          <span className="text-[8px] font-mono text-accent opacity-50 uppercase tracking-[0.5em] vertical-text">
+            [ Latitude: 43.1209° N ]
+          </span>
+          <div className="w-px h-24 bg-gradient-to-b from-accent/40 via-accent/10 to-transparent mx-auto" />
+        </div>
+        <div className="flex flex-col gap-4">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="w-1 h-1 bg-white/10 rounded-full" />
+          ))}
+        </div>
+      </div>
+
+      {/* Peripheral HUD Modules - Right Side */}
+      <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-20 pointer-events-none hidden md:flex items-end">
+        <div className="flex flex-col gap-2 items-end">
+          <span className="text-[8px] font-mono text-accent opacity-50 uppercase tracking-[0.5em] vertical-text">
+            [ Longitude: 77.6197° W ]
+          </span>
+          <div className="w-px h-24 bg-gradient-to-b from-accent/40 via-accent/10 to-transparent mx-auto" />
+        </div>
+        <div className="text-[7px] font-mono text-zinc-800 vertical-text tracking-[1em] uppercase">
+          Data_Stream_Synchronized
+        </div>
+      </div>
+
+      <div className="absolute top-6 right-8 text-[7px] font-mono text-white/20 tracking-[0.2em] pointer-events-none uppercase">
+        [ 43.1209° N // 77.6197° W ]
+      </div>
+      <div className="absolute bottom-6 left-8 text-[7px] font-mono text-white/20 tracking-[0.2em] pointer-events-none uppercase">
+        [ SYS_SYNC: 98.4% ]
+      </div>
+
+      {/* Hairline Scanline - Very slow and subtle */}
+      <motion.div
+        animate={{ y: ["0vh", "100vh"] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent pointer-events-none z-10"
+      />
+
+      {/* Vertical Branding Backdrop - Further reduced opacity */}
+      <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[15vh] font-black text-white/[0.015] vertical-text select-none pointer-events-none uppercase tracking-tighter">
+        8eyond
+      </div>
+      <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[15vh] font-black text-white/[0.015] vertical-text select-none pointer-events-none uppercase tracking-tighter">
+        Infinite
+      </div>
+
+      <div className="absolute bottom-0 left-0 right-0 h-[30vh] bg-grid-3d opacity-[0.15] pointer-events-none" />
     </section>
   );
 };

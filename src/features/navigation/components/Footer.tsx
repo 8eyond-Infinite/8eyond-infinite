@@ -32,10 +32,10 @@ export const Footer = () => {
       </div>
 
       <div className="mx-auto max-w-[1400px] relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16 md:gap-8 mb-20">
           
           {/* Column 1: Monumental Branding */}
-          <div className="md:col-span-1">
+          <div className="col-span-2 md:col-span-1">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col leading-none">
                  <span className="text-3xl font-black tracking-tighter text-white uppercase italic">8eyond</span>
@@ -54,7 +54,7 @@ export const Footer = () => {
           </div>
 
           {/* Column 2: Navigation */}
-          <div>
+          <div className="col-span-1">
             <h4 className="text-[11px] font-mono text-zinc-400 tracking-[0.4em] uppercase mb-8 opacity-50">[ NAV_MAP ]</h4>
             <div className="flex flex-col gap-2">
               <FooterLink code="01" label="Vision" href="#vision" />
@@ -65,7 +65,7 @@ export const Footer = () => {
           </div>
 
           {/* Column 3: Resources */}
-          <div>
+          <div className="col-span-1">
             <h4 className="text-[11px] font-mono text-zinc-400 tracking-[0.4em] uppercase mb-8 opacity-50">[ DATA_RES ]</h4>
             <div className="flex flex-col gap-2">
               <FooterLink code="DOC" label="Documentation" href="#" />
@@ -76,12 +76,12 @@ export const Footer = () => {
           </div>
 
           {/* Column 4: Connect */}
-          <div>
+          <div className="col-span-2 md:col-span-1">
             <h4 className="text-[11px] font-mono text-zinc-400 tracking-[0.4em] uppercase mb-8 opacity-50">[ CONNECT_NODES ]</h4>
             <div className="flex flex-wrap gap-4 mb-8">
               {["X", "GH", "DC", "LI"].map((social) => (
                 <Magnetic key={social} strength={0.4}>
-                  <a href="#" className="h-12 w-12 rounded-sm border border-white/10 bg-white/[0.02] flex items-center justify-center text-[11px] font-mono text-zinc-500 hover:text-white hover:border-accent hover:bg-accent/5 transition-all">
+                  <a href="#" className="h-10 w-10 md:h-12 md:w-12 rounded-sm border border-white/10 bg-white/[0.02] flex items-center justify-center text-[11px] font-mono text-zinc-500 hover:text-white hover:border-accent hover:bg-accent/5 transition-all">
                     {social}
                   </a>
                 </Magnetic>
@@ -92,13 +92,13 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Bar: System Metadata */}
-        <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
+        <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
           <div className="flex flex-col gap-2">
-            <div className="text-[10px] font-mono text-zinc-600 tracking-[0.4em] uppercase">
+            <div className="text-[9px] md:text-[10px] font-mono text-zinc-600 tracking-[0.2em] md:tracking-[0.4em] uppercase">
               © 2026 8eyond_Infinite // [ THE_FUTURE_IS_HERE ]
             </div>
           </div>
-          <div className="flex items-center gap-12 text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em]">
+          <div className="flex items-center gap-8 md:gap-12 text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em]">
             <div className="flex flex-col gap-1">
               <span className="opacity-40">Uptime</span>
               <span className="text-accent">99.999%</span>

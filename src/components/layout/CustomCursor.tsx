@@ -1,68 +1,142 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import { gsap } from "@/lib/gsap";
+import React, { useEffect, useState } from "react";
+import { motion, useSpring, useMotionValue } from "framer-motion";
 
 export const CustomCursor = () => {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const followerRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isClicking, setIsClicking] = useState(false);
+  
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+  
+  // High response for the core star
+  const coreConfig = { damping: 40, stiffness: 400 };
+  const starX = useSpring(cursorX, coreConfig);
+  const starY = useSpring(cursorY, coreConfig);
+
+  // Soft trail for the glow
+  const glowConfig = { damping: 20, stiffness: 150 };
+  const glowX = useSpring(cursorX, glowConfig);
+  const glowY = useSpring(cursorY, glowConfig);
 
   useEffect(() => {
-    const cursor = cursorRef.current;
-    const follower = followerRef.current;
-
-    if (!cursor || !follower) return;
-
-    const xToCursor = gsap.quickTo(cursor, "x", { duration: 0.2, ease: "power3" });
-    const yToCursor = gsap.quickTo(cursor, "y", { duration: 0.2, ease: "power3" });
-    
-    const xToFollower = gsap.quickTo(follower, "x", { duration: 0.6, ease: "power3" });
-    const yToFollower = gsap.quickTo(follower, "y", { duration: 0.6, ease: "power3" });
-
-    const handleMouseMove = (e: MouseEvent) => {
-      xToCursor(e.clientX);
-      yToCursor(e.clientY);
-      xToFollower(e.clientX);
-      yToFollower(e.clientY);
+    const moveCursor = (e: MouseEvent) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
     };
 
-    const handleMouseEnter = (e: MouseEvent) => {
+    const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target.closest('button, a, .interactive')) {
-        gsap.to(follower, { scale: 2.5, backgroundColor: "rgba(56, 189, 248, 0.15)", borderColor: "rgba(56, 189, 248, 0.5)", duration: 0.3 });
-        gsap.to(cursor, { scale: 0.5, duration: 0.3 });
+      if (
+        target.tagName === "A" || 
+        target.tagName === "BUTTON" || 
+        target.closest(".magnetic-target") ||
+        target.closest('button, a, .interactive') ||
+        target.onclick
+      ) {
+        setIsHovered(true);
+      } else {
+        setIsHovered(false);
       }
     };
 
-    const handleMouseLeave = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest('button, a, .interactive')) {
-        gsap.to(follower, { scale: 1, backgroundColor: "transparent", borderColor: "rgba(255, 255, 255, 0.2)", duration: 0.3 });
-        gsap.to(cursor, { scale: 1, duration: 0.3 });
-      }
-    };
+    const handleMouseDown = () => setIsClicking(true);
+    const handleMouseUp = () => setIsClicking(false);
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseover", handleMouseEnter);
-    window.addEventListener("mouseout", handleMouseLeave);
+    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseover", handleMouseEnter);
-      window.removeEventListener("mouseout", handleMouseLeave);
+      window.removeEventListener("mousemove", moveCursor);
+      window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, []);
+  }, [cursorX, cursorY]);
 
   return (
     <>
-      <div 
-        ref={cursorRef} 
-        className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference -translate-x-1/2 -translate-y-1/2" 
+      <style jsx global>{`
+        body {
+          cursor: none !important;
+        }
+        a, button, [role="button"], .interactive {
+          cursor: none !important;
+        }
+      `}</style>
+
+      {/* Star Ambient Glow */}
+      <motion.div
+        style={{
+          translateX: glowX,
+          translateY: glowY,
+          left: -40,
+          top: -40,
+        }}
+        animate={{
+          scale: isHovered ? 1.5 : 1,
+          opacity: isClicking ? 0.3 : 0.6,
+        }}
+        className="fixed w-20 h-20 pointer-events-none z-[100000] rounded-full bg-[radial-gradient(circle,rgba(41,98,255,0.4)_0%,transparent_70%)] blur-md"
       />
-      <div 
-        ref={followerRef} 
-        className="fixed top-0 left-0 w-10 h-10 border border-white/20 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2" 
-      />
+
+      {/* The Core Star */}
+      <motion.div
+        style={{
+          translateX: starX,
+          translateY: starY,
+          left: -15,
+          top: -15,
+        }}
+        className="fixed w-[30px] h-[30px] pointer-events-none z-[100001] flex items-center justify-center"
+      >
+        {/* Horizontal Flare */}
+        <motion.div 
+          animate={{ 
+            width: isHovered ? 60 : 0,
+            opacity: isHovered ? 0.8 : 0
+          }}
+          className="absolute h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"
+        />
+        {/* Vertical Flare */}
+        <motion.div 
+          animate={{ 
+            height: isHovered ? 60 : 0,
+            opacity: isHovered ? 0.8 : 0
+          }}
+          className="absolute w-[1px] bg-gradient-to-b from-transparent via-white to-transparent"
+        />
+        
+        {/* The Star Body */}
+        <motion.div 
+          animate={{ 
+            scale: isHovered ? 1.5 : 1,
+            rotate: isHovered ? 90 : 0
+          }}
+          className="relative flex items-center justify-center"
+        >
+           {/* Outer Glow */}
+           <div className="absolute inset-0 bg-accent rounded-full blur-[4px] opacity-60" />
+           {/* White Core */}
+           <div className="w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_15px_#fff]" />
+           
+           {/* Star Points (Diamond shape) */}
+           <div className="absolute w-4 h-4 border border-white/20 rotate-45 scale-75" />
+        </motion.div>
+      </motion.div>
+
+      {/* Click Impact */}
+      {isClicking && (
+        <motion.div
+          initial={{ scale: 0.2, opacity: 1, x: cursorX.get(), y: cursorY.get() }}
+          animate={{ scale: 2, opacity: 0 }}
+          style={{ left: -10, top: -10 }}
+          className="fixed w-5 h-5 rounded-full border border-white pointer-events-none z-[100002]"
+        />
+      )}
     </>
   );
 };
