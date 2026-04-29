@@ -9,7 +9,7 @@ const CardHeader = ({ title, tag, code }: { title: string; tag: string; code?: s
   <div className="flex flex-col gap-1 mb-8">
     <div className="flex justify-between items-center">
       <span className="text-[10px] font-mono text-accent tracking-[0.3em] uppercase">[ {tag} ]</span>
-      {code && <span className="text-[8px] font-mono text-zinc-700 uppercase">{code}</span>}
+      {code && <span className="text-[8px] font-mono text-zinc-500 uppercase opacity-80">{code}</span>}
     </div>
     <h3 className="text-2xl font-bold tracking-tight text-white mt-2">{title}</h3>
   </div>
@@ -52,7 +52,7 @@ export const BentoGrid = () => {
       {/* Background decoration with HUD lines */}
       <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-accent/20 via-transparent to-transparent opacity-30" />
       <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/5 to-transparent opacity-30" />
-      <div className="absolute bottom-10 left-10 text-[8px] font-mono text-zinc-800 opacity-50 hidden lg:block">
+      <div className="absolute bottom-10 left-10 text-[8px] font-mono text-zinc-500 opacity-80 hidden lg:block">
         [ COORDINATES: 43.1209° N // 77.6197° W ]<br />
         [ SYSTEM_TIME: {systemTime || "INITIALIZING..."} ]
       </div>
@@ -89,7 +89,7 @@ export const BentoGrid = () => {
                   </p>
                 </div>
                 <div className="relative h-64 mt-12 bg-black/50 rounded-2xl overflow-hidden border border-white/5 p-4 flex flex-col gap-2">
-                   <div className="flex justify-between text-[8px] font-mono text-zinc-700">
+                   <div className="flex justify-between text-[8px] font-mono text-zinc-400 opacity-80">
                      <span>[ STREAMING_DATA ]</span>
                      <span>BUFFER: 98%</span>
                    </div>

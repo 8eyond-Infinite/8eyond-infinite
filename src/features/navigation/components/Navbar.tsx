@@ -23,15 +23,6 @@ const MiniCore = () => (
 );
 
 export const Navbar = () => {
-  const [latency, setLatency] = React.useState("0.002");
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setLatency((Math.random() * 0.005 + 0.001).toFixed(3));
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <nav className="fixed top-0 left-0 right-0 z-[100] p-6 pointer-events-none">
       <div className="mx-auto max-w-[1800px] flex items-start justify-between">
@@ -47,26 +38,6 @@ export const Navbar = () => {
               </div>
             </div>
           </Magnetic>
-        </div>
-
-        {/* Top Center: System Status HUD - Live Monitoring */}
-        <div className="hidden lg:flex flex-col items-center gap-1 group">
-          <div className="flex items-center gap-3">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-accent"></span>
-            </span>
-            <span className="text-[7px] font-mono tracking-[0.4em] uppercase text-white/80">
-              [ NEURAL_LINK: ESTABLISHED ]
-            </span>
-          </div>
-          <div className="flex items-center gap-4 mt-1">
-            <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-accent/50" />
-            <span className="text-[6px] font-mono text-accent/60 uppercase">
-              Latency: {latency}ms
-            </span>
-            <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-accent/50" />
-          </div>
         </div>
 
         {/* Top Right: Navigation Pills */}
@@ -92,7 +63,6 @@ export const Navbar = () => {
             </Magnetic>
           </div>
         </div>
-
       </div>
     </nav>
   );

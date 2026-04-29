@@ -1,5 +1,5 @@
 import { Navbar, Footer } from "@/features/navigation";
-import { Hero, BentoGrid } from "@/features/landing";
+import { Hero, BentoGrid, Manifesto } from "@/features/landing";
 
 export default function Home() {
   return (
@@ -7,6 +7,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <BentoGrid />
+      <Manifesto />
       <Footer />
     </main>
   );

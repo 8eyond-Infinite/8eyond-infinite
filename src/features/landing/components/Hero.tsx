@@ -194,10 +194,12 @@ export const Hero = () => {
           </Magnetic>
 
           <Magnetic strength={0.3}>
-            <Button variant="ghost" className="group flex items-center gap-4 font-mono text-xs tracking-widest text-zinc-400 hover:text-white transition-colors whitespace-nowrap">
-              <span className="h-px w-8 bg-zinc-800 transition-all group-hover:w-12 group-hover:bg-white flex-shrink-0" />
-              [ VIEW MANIFESTO ]
-            </Button>
+            <a href="#manifesto">
+              <Button variant="ghost" className="group flex items-center gap-4 font-mono text-xs tracking-widest text-zinc-400 hover:text-white transition-colors whitespace-nowrap">
+                <span className="h-px w-8 bg-zinc-800 transition-all group-hover:w-12 group-hover:bg-white flex-shrink-0" />
+                [ VIEW MANIFESTO ]
+              </Button>
+            </a>
           </Magnetic>
         </motion.div>
       </div>

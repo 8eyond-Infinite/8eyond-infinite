@@ -87,14 +87,14 @@ export const Footer = () => {
 
         {/* Bottom Bar: System Metadata */}
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-[8px] font-mono text-zinc-700 tracking-widest uppercase">
+          <div className="text-[8px] font-mono text-zinc-500 tracking-widest uppercase opacity-80">
             © 2026 8EYOND_INFINITE // [ ALL_RIGHTS_RESERVED ]
           </div>
           <div className="flex items-center gap-8">
-            <div className="text-[8px] font-mono text-zinc-700 uppercase">
+            <div className="text-[8px] font-mono text-zinc-500 uppercase opacity-80">
               [ LATENCY: 0.002MS ]
             </div>
-            <div className="text-[8px] font-mono text-zinc-700 uppercase">
+            <div className="text-[8px] font-mono text-zinc-500 uppercase opacity-80">
               [ LOC: 43.1209° N // 77.6197° W ]
             </div>
           </div>
