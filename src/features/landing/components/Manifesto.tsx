@@ -1,12 +1,9 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { gsap } from "@/lib/gsap";
 
-const ManifestoLine = ({ text, delay, direction = 1 }: { text: string; delay: number; direction?: number }) => {
-  const lineRef = useRef<HTMLDivElement>(null);
-  
+const ManifestoLine = ({ text, delay }: { text: string; delay: number }) => {
   return (
     <div className="overflow-hidden py-2">
       <motion.div
@@ -54,25 +51,31 @@ export const Manifesto = () => {
       >
         <div className="mb-20">
           <span className="text-[12px] font-mono text-accent tracking-[0.5em] uppercase block mb-6">
-            [ SECTION_03 // THE_MANIFESTO ]
+            [ PHASE_02 // THE_MANIFESTO ]
           </span>
+          <h2 className="text-5xl md:text-8xl font-black tracking-tighter text-white uppercase italic leading-[0.9] mb-12">
+            The Infinite <br /> 
+            <span className="text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.3)" }}>
+              Protocol.
+            </span>
+          </h2>
           <h2 className="text-xl md:text-2xl font-light text-zinc-500 max-w-xl leading-relaxed">
             We do not build for the present. We engineer for the post-infinite era where computation meets sentience.
           </h2>
         </div>
 
         <div className="flex flex-col">
-          <ManifestoLine delay={0.1} text="THE LIMITS OF LOGIC" />
-          <ManifestoLine delay={0.2} text="ARE NOT THE LIMITS" />
-          <ManifestoLine delay={0.3} text="OF REALITY. WE BEYOND" />
-          <ManifestoLine delay={0.4} text="THE INFINITE HORIZON" />
-          <ManifestoLine delay={0.5} text="TO REDEFINE EXISTENCE" />
+          <ManifestoLine delay={0.1} text="FROM THE LEAD OF LOGIC" />
+          <ManifestoLine delay={0.2} text="TO THE GOLD OF REALITY" />
+          <ManifestoLine delay={0.3} text="THE HORIZONTAL EIGHT" />
+          <ManifestoLine delay={0.4} text="THE INFINITE PROTOCOL" />
+          <ManifestoLine delay={0.5} text="ALCHEMY IN EVERY NODE" />
         </div>
 
         <div className="mt-32 flex flex-col md:flex-row justify-between items-end border-t border-white/5 pt-10 gap-8">
           <div className="max-w-md">
              <p className="text-sm text-zinc-600 font-light leading-relaxed">
-               [ PROTOCOL_LOG ]: Reality is a malleable construct. Our mission is to provide the architectural integrity needed to reshape it. No latency. No compromise. Only transcendence.
+               [ PROTOCOL_LOG ]: We are the modern alchemists. Our laboratory is the digital void, our catalyst is the number 8, and our objective is the infinite. 01.11 is the frequency of genesis.
              </p>
           </div>
           <div className="flex flex-col items-end gap-2">

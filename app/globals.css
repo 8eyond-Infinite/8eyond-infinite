@@ -3,10 +3,19 @@
 :root {
   --background: #000000;
   --foreground: #ffffff;
-  --accent: #38bdf8;
-  --accent-secondary: #818cf8;
+  --accent: #2962ff;
+  --accent-secondary: #1565c0;
   --border: rgba(255, 255, 255, 0.1);
   --card-bg: rgba(255, 255, 255, 0.03);
+}
+
+@keyframes shimmer-fast {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer-fast {
+  animation: shimmer-fast 4s linear infinite;
 }
 
 @theme {

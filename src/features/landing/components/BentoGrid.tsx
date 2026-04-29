@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { gsap } from "@/lib/gsap";
 import { Magnetic } from "@/components/ui/Magnetic";
 
@@ -19,9 +19,18 @@ export const BentoGrid = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [systemTime, setSystemTime] = React.useState("");
 
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const y4 = useTransform(scrollYProgress, [0, 1], [0, -250]);
+
   useEffect(() => {
     // 1. Live System Clock
-    setSystemTime(new Date().toISOString());
     const timer = setInterval(() => {
       setSystemTime(new Date().toISOString());
     }, 1000);
@@ -48,7 +57,7 @@ export const BentoGrid = () => {
   }, []);
 
   return (
-    <section ref={containerRef} id="vision" className="relative py-32 px-6 bg-black overflow-hidden">
+    <section ref={containerRef} id="vision" className="relative py-40 px-6 bg-black overflow-hidden">
       {/* Background decoration with HUD lines */}
       <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-accent/20 via-transparent to-transparent opacity-30" />
       <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/5 to-transparent opacity-30" />
@@ -65,26 +74,29 @@ export const BentoGrid = () => {
               whileInView={{ opacity: 1 }}
               className="text-[12px] font-mono text-accent tracking-[0.5em] uppercase block mb-4"
             >
-              [ PHASE_02 // THE_NEXUS ]
+              [ PHASE_01 // THE_NEXUS ]
             </motion.span>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white">
-              Infinite Scaling.<br />Zero Compromise.
+            <h2 className="text-5xl md:text-8xl font-black tracking-tighter text-white uppercase italic leading-[0.9]">
+              Infinite Scaling.<br /> 
+              <span className="text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.3)" }}>
+                Zero Compromise.
+              </span>
             </h2>
           </div>
-          <p className="max-w-xs text-sm text-zinc-600 font-light leading-relaxed">
+          <p className="max-w-xs text-[10px] font-mono text-zinc-600 uppercase tracking-widest leading-relaxed">
             [ ARCHITECTURE_REPORT ]: We are re-engineering the foundational layers of digital existence to support the magnitude of the next decade.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 h-full md:h-[800px]">
+        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 h-auto md:h-[900px]">
           
           {/* Big Card: Compute */}
-          <div className="bento-card md:col-span-2 md:row-span-2">
+          <motion.div style={{ y: y1 }} className="bento-card md:col-span-2 md:row-span-2">
             <Magnetic strength={0.05}>
-              <div className="glass-refraction h-full rounded-[2rem] p-10 flex flex-col justify-between border border-white/5 group hover:border-accent/30 transition-all duration-500">
+              <div className="glass-refraction h-full rounded-[2rem] p-10 flex flex-col justify-between border border-white/10 group hover:border-accent/30 transition-all duration-500">
                 <div>
                   <CardHeader tag="Compute" title="Neural Mesh Architecture" code="0x8F_NEXUS" />
-                  <p className="text-zinc-500 text-sm max-w-sm leading-relaxed">
+                  <p className="text-zinc-500 text-sm max-w-sm leading-relaxed font-light">
                     Our proprietary decentralized compute fabric allows for horizontal scaling without the traditional overhead of synchronized states.
                   </p>
                 </div>
@@ -110,28 +122,28 @@ export const BentoGrid = () => {
                 </div>
               </div>
             </Magnetic>
-          </div>
+          </motion.div>
 
           {/* Medium Card: Intelligence */}
-          <div className="bento-card md:col-span-2 md:row-span-1">
+          <motion.div style={{ y: y2 }} className="bento-card md:col-span-2 md:row-span-1">
              <Magnetic strength={0.1}>
-                <div className="glass-refraction h-full rounded-[2rem] p-10 flex flex-col justify-between border border-white/5 hover:border-accent-secondary/30 transition-all">
+                <div className="glass-refraction h-full rounded-[2rem] p-10 flex flex-col justify-between border border-white/10 hover:border-accent/40 transition-all">
                   <div className="flex justify-between items-start">
                     <CardHeader tag="Intelligence" title="Predictive Latency" code="LAT_01" />
                     <span className="text-[10px] font-mono text-accent">[ ONLINE ]</span>
                   </div>
                   <div className="flex gap-4 items-end">
-                    <div className="text-5xl font-black tracking-tighter text-white">0.02<span className="text-lg text-accent ml-1">ms</span></div>
+                    <div className="text-5xl font-black tracking-tighter text-white">0.02<span className="text-lg text-accent ml-1 uppercase">ms</span></div>
                     <span className="text-[10px] font-mono text-zinc-600 mb-2 uppercase">[ GLOBAL_AVG ]</span>
                   </div>
                 </div>
              </Magnetic>
-          </div>
+          </motion.div>
 
           {/* Small Card: Security */}
-          <div className="bento-card md:col-span-1 md:row-span-1">
+          <motion.div style={{ y: y3 }} className="bento-card md:col-span-1 md:row-span-1">
             <Magnetic strength={0.1}>
-              <div className="glass-refraction h-full rounded-[2rem] p-8 flex flex-col justify-between border border-white/5 hover:border-white/20 transition-all">
+              <div className="glass-refraction h-full rounded-[2rem] p-8 flex flex-col justify-between border border-white/10 hover:border-white/20 transition-all">
                 <CardHeader tag="Security" title="Hardened Nodes" code="SEC_ALPHA" />
                 <div className="font-mono text-[9px] text-zinc-600 space-y-1">
                   <div className="flex justify-between"><span>[ ENCRYPTION ]</span> <span className="text-white">AES-256</span></div>
@@ -140,19 +152,19 @@ export const BentoGrid = () => {
                 </div>
               </div>
             </Magnetic>
-          </div>
+          </motion.div>
 
           {/* Small Card: Ecosystem */}
-          <div className="bento-card md:col-span-1 md:row-span-1">
+          <motion.div style={{ y: y4 }} className="bento-card md:col-span-1 md:row-span-1">
             <Magnetic strength={0.1}>
-              <div className="glass-refraction h-full rounded-[2rem] p-8 flex flex-col justify-between border border-white/5 bg-accent/5 hover:bg-accent/10 transition-all">
+              <div className="glass-refraction h-full rounded-[2rem] p-8 flex flex-col justify-between border border-white/10 bg-accent/5 hover:bg-accent/10 transition-all">
                 <CardHeader tag="Connect" title="Open Protocol" code="SDK_v1" />
-                <button className="w-full py-3 bg-white text-black text-[9px] font-bold tracking-[0.2em] uppercase rounded-xl hover:bg-accent transition-colors flex items-center justify-center gap-2">
+                <button className="w-full py-3 bg-white text-black text-[9px] font-bold tracking-[0.2em] uppercase rounded-xl hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
                   <span>[</span> READ_SDK <span>]</span>
                 </button>
               </div>
             </Magnetic>
-          </div>
+          </motion.div>
 
         </div>
       </div>

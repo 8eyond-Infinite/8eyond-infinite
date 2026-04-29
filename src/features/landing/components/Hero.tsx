@@ -112,11 +112,11 @@ export const Hero = () => {
     }),
   };
 
-  const titleStr = "8eyond Infinite";
 
   return (
     <section
       ref={containerRef}
+      id="hero"
       className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-black selection:bg-accent/30"
     >
       <Starfield />
@@ -138,32 +138,40 @@ export const Hero = () => {
       </div>
       <div className="relative z-20 flex flex-col items-center text-center px-6">
         <motion.div
-          custom={0}
-          variants={contentVariants}
-          initial="hidden"
-          animate="visible"
-          className="mb-8 font-mono text-[10px] tracking-[0.3em] text-accent uppercase flex items-center gap-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="flex flex-col items-center gap-6 mb-8"
         >
-          <span className="h-px w-8 bg-accent/30" />
-          Neural Architecture // System 8.0
-          <span className="h-px w-8 bg-accent/30" />
+          <span className="text-[10px] font-mono text-accent tracking-[0.5em] uppercase opacity-70">
+            [ ORIGIN_POINT // GENESIS_00 ]
+          </span>
         </motion.div>
 
         <div className="relative mb-10">
           <h1
             ref={titleBlueRef}
-            className="absolute inset-0 text-7xl font-bold tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-blue-500 opacity-50 mix-blend-screen pointer-events-none"
+            className="absolute inset-0 text-7xl font-black tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-blue-500 opacity-50 mix-blend-screen pointer-events-none uppercase italic"
           >
-            {titleStr}
+            8eyond
           </h1>
           <h1
             ref={titleRedRef}
-            className="absolute inset-0 text-7xl font-bold tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-red-500 opacity-50 mix-blend-screen pointer-events-none"
+            className="absolute inset-0 text-7xl font-black tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-red-500 opacity-50 mix-blend-screen pointer-events-none uppercase italic"
           >
-            {titleStr}
+            8eyond
           </h1>
-          <h1 className="relative text-7xl font-bold tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-white">
-            {titleStr}
+          <h1 className="relative text-7xl font-black tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-white uppercase italic">
+            8eyond<br />
+            <span 
+              className="text-transparent bg-clip-text bg-gradient-to-r from-transparent via-white/50 to-transparent bg-[length:200%_100%] animate-shimmer-fast" 
+              style={{ 
+                WebkitTextStroke: "1px rgba(255,255,255,0.2)",
+                textShadow: "0 0 20px rgba(6,182,212,0.1)"
+              }}
+            >
+              Infinite.
+            </span>
           </h1>
         </div>
 

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { gsap } from "@/lib/gsap";
 
 export const Starfield = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
