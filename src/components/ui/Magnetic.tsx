@@ -1,43 +1,54 @@
 "use client";
 
-import React, { useRef, useState, ReactNode } from "react";
-import { motion } from "framer-motion";
+import React, { useRef, useEffect, ReactNode } from "react";
+import { gsap } from "@/lib/gsap";
 
 interface MagneticProps {
   children: ReactNode;
   strength?: number;
 }
 
-export const Magnetic = ({ children, strength = 0.5 }: MagneticProps) => {
+export const Magnetic = ({ children, strength = 0.3 }: MagneticProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const { clientX, clientY } = e;
-    const { left, top, width, height } = ref.current?.getBoundingClientRect() ?? { left: 0, top: 0, width: 0, height: 0 };
-    
-    const centerX = left + width / 2;
-    const centerY = top + height / 2;
-    
-    const x = (clientX - centerX) * strength;
-    const y = (clientY - centerY) * strength;
-    
-    setPosition({ x, y });
-  };
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
 
-  const handleMouseLeave = () => {
-    setPosition({ x: 0, y: 0 });
-  };
+    const xTo = gsap.quickTo(element, "x", { duration: 1, ease: "power3", opacity: 1 });
+    const yTo = gsap.quickTo(element, "y", { duration: 1, ease: "power3", opacity: 1 });
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { left, top, width, height } = element.getBoundingClientRect();
+      
+      const centerX = left + width / 2;
+      const centerY = top + height / 2;
+      
+      const deltaX = (clientX - centerX) * strength;
+      const deltaY = (clientY - centerY) * strength;
+      
+      xTo(deltaX);
+      yTo(deltaY);
+    };
+
+    const handleMouseLeave = () => {
+      xTo(0);
+      yTo(0);
+    };
+
+    element.addEventListener("mousemove", handleMouseMove);
+    element.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      element.removeEventListener("mousemove", handleMouseMove);
+      element.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [strength]);
 
   return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      animate={{ x: position.x, y: position.y }}
-      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-    >
+    <div ref={ref} className="inline-block w-full h-full">
       {children}
-    </motion.div>
+    </div>
   );
 };

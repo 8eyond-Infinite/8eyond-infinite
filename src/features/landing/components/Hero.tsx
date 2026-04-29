@@ -5,6 +5,7 @@ import { motion, Variants } from "framer-motion";
 import { gsap } from "@/lib/gsap";
 import { Button } from "@/components/ui/Button";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { Starfield } from "./space/Starfield";
 
 const InfinityIcon = () => (
   <svg className="w-full h-full" viewBox="0 0 200 100" fill="none">
@@ -30,11 +31,9 @@ export const Hero = () => {
   const titleRedRef = useRef<HTMLHeadingElement>(null);
   const titleBlueRef = useRef<HTMLHeadingElement>(null);
   const coreRef = useRef<HTMLDivElement>(null);
-  const linesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Infinity Core Animation
       gsap.to(".infinity-path", {
         strokeDashoffset: 0,
         duration: 3,
@@ -94,28 +93,6 @@ export const Hero = () => {
         ease: "none",
       });
 
-      // 4. Kinetic Lines Generation
-      for (let i = 0; i < 15; i++) {
-        const line = document.createElement("div");
-        line.className = "kinetic-line opacity-20";
-        linesRef.current?.appendChild(line);
-
-        gsap.set(line, {
-          top: Math.random() * 100 + "%",
-          left: -100,
-          scaleX: 0.1 + Math.random() * 0.5,
-          rotation: (Math.random() - 0.5) * 45,
-        });
-
-        gsap.to(line, {
-          left: "120%",
-          duration: 10 + Math.random() * 10,
-          repeat: -1,
-          ease: "none",
-          delay: Math.random() * 10,
-        });
-      }
-
       return () => window.removeEventListener("mousemove", handleMouseMove);
     }, containerRef);
 
@@ -140,21 +117,20 @@ export const Hero = () => {
   return (
     <section
       ref={containerRef}
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-black"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-black selection:bg-accent/30"
     >
+      <Starfield />
       <div className="grain-overlay" />
-
-      {/* Background Structural Layer */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(2,6,23,1)_0%,rgba(0,0,0,1)_100%)]" />
-        <div ref={linesRef} className="absolute inset-0 overflow-hidden pointer-events-none" />
+        <div className="absolute inset-0 bg-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(2,6,23,0.3)_0%,transparent_70%)]" />
       </div>
 
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none">
         <Magnetic strength={0.2}>
           <div
             ref={coreRef}
-            className="w-full h-full opacity-20 blur-[60px]"
+            className="w-full h-full opacity-30 blur-[40px]"
           >
             <InfinityIcon />
           </div>
@@ -174,21 +150,18 @@ export const Hero = () => {
         </motion.div>
 
         <div className="relative mb-10">
-          {/* Layer 1: Blue Ghost */}
           <h1
             ref={titleBlueRef}
             className="absolute inset-0 text-7xl font-bold tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-blue-500 opacity-50 mix-blend-screen pointer-events-none"
           >
             {titleStr}
           </h1>
-          {/* Layer 2: Red Ghost */}
           <h1
             ref={titleRedRef}
             className="absolute inset-0 text-7xl font-bold tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-red-500 opacity-50 mix-blend-screen pointer-events-none"
           >
             {titleStr}
           </h1>
-          {/* Layer 3: Main White */}
           <h1 className="relative text-7xl font-bold tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-white">
             {titleStr}
           </h1>
@@ -221,8 +194,8 @@ export const Hero = () => {
           </Magnetic>
 
           <Magnetic strength={0.3}>
-            <Button variant="ghost" className="group flex items-center gap-4 font-mono text-xs tracking-widest text-zinc-400 hover:text-white transition-colors">
-              <span className="h-px w-8 bg-zinc-800 transition-all group-hover:w-12 group-hover:bg-white" />
+            <Button variant="ghost" className="group flex items-center gap-4 font-mono text-xs tracking-widest text-zinc-400 hover:text-white transition-colors whitespace-nowrap">
+              <span className="h-px w-8 bg-zinc-800 transition-all group-hover:w-12 group-hover:bg-white flex-shrink-0" />
               [ VIEW MANIFESTO ]
             </Button>
           </Magnetic>
