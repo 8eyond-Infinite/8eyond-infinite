@@ -25,9 +25,9 @@ const TypewriterLine = ({ text, onComplete }: { text: string; onComplete: () => 
       i++;
       if (i >= text.length) {
         clearInterval(timer);
-        setTimeout(onComplete, 120);
+        setTimeout(onComplete, 30); // Giảm delay hoàn tất dòng
       }
-    }, 20);
+    }, 5); // Tốc độ gõ siêu nhanh
     return () => clearInterval(timer);
   }, [text, onComplete]);
 
@@ -58,7 +58,8 @@ export const Preloader = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prev) => {
-        const next = prev >= 100 ? 100 : prev + 0.5;
+        // Tốc độ ánh sáng
+        const next = prev >= 100 ? 100 : prev + 5;
         window.dispatchEvent(new CustomEvent("alchemist:progress", { detail: next }));
         if (next >= 100) {
           clearInterval(interval);
@@ -66,7 +67,7 @@ export const Preloader = () => {
         }
         return next;
       });
-    }, 50);
+    }, 10); // Interval cực ngắn
     return () => clearInterval(interval);
   }, []);
 
@@ -103,7 +104,7 @@ export const Preloader = () => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center p-12 overflow-hidden"
+      className="fixed inset-0 z-[50] bg-black flex flex-col items-center justify-center p-12 overflow-hidden"
     >
       {/* Atmosphere */}
       <div className="absolute inset-0 bg-black" />

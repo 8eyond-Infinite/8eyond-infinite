@@ -33,13 +33,12 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black selection:bg-accent/30 selection:text-white`}>
         <Preloader />
+        <GlobalInfinity />
+        
         <SmoothScrollProvider>
-          <GlobalInfinity />
           <CustomCursor />
           <Navbar />
-          <main className="relative flex flex-col min-h-screen">
-            {children}
-          </main>
+          {children}
           <Footer />
         </SmoothScrollProvider>
       </body>

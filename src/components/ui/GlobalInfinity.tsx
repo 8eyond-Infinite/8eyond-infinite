@@ -15,6 +15,7 @@ export const GlobalInfinity = () => {
   const fireRef = useRef<SVGPathElement>(null);
   const [isBurning, setIsBurning] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [currentZIndex, setCurrentZIndex] = useState(20000);
 
   useGSAP(() => {
     if (!containerRef.current || !pathRef.current) return;
@@ -25,6 +26,7 @@ export const GlobalInfinity = () => {
 
     // Lấy chiều dài thực tế của path
     const pathLength = path.getTotalLength();
+    console.log("GlobalInfinity: Path Length calculated:", pathLength);
 
     // --- PHASE 1: PRELOADER STATE (Centered) ---
     gsap.set(container, { 
@@ -44,9 +46,11 @@ export const GlobalInfinity = () => {
     // Lắng nghe tiến trình vẽ từ Preloader
     const handleProgress = (e: any) => {
       const progress = e.detail;
-      // Tính toán offset dựa trên chiều dài thực tế
+      console.log("GlobalInfinity: Progress received:", progress);
+      const offset = pathLength - (pathLength * (progress / 100));
+      
       gsap.to(path, { 
-        strokeDashoffset: pathLength - (pathLength * (progress / 100)), 
+        strokeDashoffset: offset, 
         duration: 0.2,
         ease: "power1.out"
       });
@@ -54,10 +58,13 @@ export const GlobalInfinity = () => {
 
     // Lắng nghe lệnh hoàn tất để "bay" về Hero
     const handleComplete = () => {
+      console.log("GlobalInfinity: Received alchemist:complete - Flying to Hero position...");
       setIsLoaded(true);
       
       const tl = gsap.timeline({
         onComplete: () => {
+          console.log("GlobalInfinity: Flight complete - Now submerging to Sandwich layer (z-10)");
+          setCurrentZIndex(10); // Chỉ hạ z-index sau khi đã bay về vị trí Hero
           buildJourney();
         }
       });
@@ -67,7 +74,7 @@ export const GlobalInfinity = () => {
         y: "10vh",
         scale: 1.1,
         rotate: -10,
-        duration: 1.8, // Tăng nhẹ thời gian bay cho nó điện ảnh
+        duration: 1.8, 
         ease: "expo.inOut"
       });
     };
@@ -81,7 +88,7 @@ export const GlobalInfinity = () => {
 
       const sections = [
         { id: "hero", x: "18vw", y: "10vh", rotate: -10, scale: 1.1 },
-        { id: "vision", x: "10%", y: "5vh", rotate: 20, scale: 0.9 },
+        { id: "vision", x: "15vw", y: "5vh", rotate: 0, scale: 1.2 },
         { id: "manifesto", x: "35%", y: "15vh", rotate: 90, scale: 0.7 },
         { id: "projects", x: "-20%", y: "-10vh", rotate: 180, scale: 1.3 },
         { id: "tech", x: "20%", y: "10vh", rotate: 220, scale: 0.8 },
@@ -145,7 +152,7 @@ export const GlobalInfinity = () => {
   return (
     <div 
       ref={containerRef}
-      style={{ zIndex: 10000 }}
+      style={{ zIndex: currentZIndex }}
       className="fixed inset-0 pointer-events-none flex items-center justify-center overflow-visible"
     >
       <style jsx global>{`
