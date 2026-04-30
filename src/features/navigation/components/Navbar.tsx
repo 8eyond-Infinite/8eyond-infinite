@@ -4,24 +4,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Magnetic } from "@/components/ui/Magnetic";
 
-const LogoInfinite = () => (
-  <motion.div
-    initial={{ rotate: 0 }}
-    animate={{ rotate: 360 }}
-    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-    className="w-10 h-10 flex items-center justify-center"
-  >
-    <svg viewBox="0 0 100 100" className="w-8 h-8">
-      <path
-        d="M25,25 C25,10 40,10 50,25 C60,40 75,40 75,25 C75,10 60,10 50,25 C40,40 25,40 25,25 Z"
-        stroke="var(--accent)"
-        strokeWidth="4"
-        fill="none"
-        className="drop-shadow-[0_0_5px_var(--accent)]" 
-      />
-    </svg>
-  </motion.div>
-);
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
