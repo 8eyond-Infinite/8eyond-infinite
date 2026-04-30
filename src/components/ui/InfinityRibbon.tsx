@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, MeshDistortMaterial, CurveModifier } from "@react-three/drei";
+import { Float, MeshDistortMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
 const Ribbon = () => {
@@ -29,7 +29,7 @@ const Ribbon = () => {
     meshRef.current.rotation.y = t * 0.2;
     meshRef.current.rotation.z = Math.sin(t * 0.5) * 0.1;
 
-    // Follow scroll (simplified for now, can be enhanced)
+    // Follow scroll
     const scrollY = typeof window !== "undefined" ? window.scrollY : 0;
     meshRef.current.position.y = -scrollY * 0.005;
   });
@@ -52,6 +52,15 @@ const Ribbon = () => {
 };
 
 export const InfinityRibbon = () => {
+  // Chốt giá trị ngẫu nhiên vào state để satisfy Lint purity
+  const [particlePositions] = useState(() => 
+    Array.from({ length: 50 }).map(() => [
+      (Math.random() - 0.5) * 50,
+      (Math.random() - 0.5) * 50,
+      (Math.random() - 0.5) * 20
+    ] as [number, number, number])
+  );
+
   return (
     <div className="fixed inset-0 pointer-events-none z-[-1] opacity-40">
       <Canvas camera={{ position: [0, 0, 25], fov: 45 }}>
@@ -64,12 +73,8 @@ export const InfinityRibbon = () => {
         
         {/* Particle dust in 3D space */}
         <Float speed={2} rotationIntensity={1} floatIntensity={1}>
-           {Array.from({ length: 50 }).map((_, i) => (
-             <mesh key={i} position={[
-               (Math.random() - 0.5) * 50,
-               (Math.random() - 0.5) * 50,
-               (Math.random() - 0.5) * 20
-             ]}>
+           {particlePositions.map((pos, i) => (
+             <mesh key={i} position={pos}>
                <sphereGeometry args={[0.05, 8, 8]} />
                <meshBasicMaterial color="#fbbf24" transparent opacity={0.3} />
              </mesh>

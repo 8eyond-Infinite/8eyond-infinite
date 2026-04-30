@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { gsap } from "@/lib/gsap";
-import { Magnetic } from "@/components/ui/Magnetic";
 
 const PhilosopherCore = () => (
   <div className="relative w-full h-full flex items-center justify-center">
@@ -18,43 +17,53 @@ const PhilosopherCore = () => (
       />
     ))}
     
-    {/* The Master 8 Core is now handled by GlobalInfinity in Layout */}
     <div className="relative w-64 h-32 z-10 opacity-0">
-      {/* Invisible placeholder to maintain layout if needed */}
     </div>
-
   </div>
 );
 
 const FloatingSymbols = () => {
   const symbols = ['☿', '🜍', '🜔', '🜁', '🜃', '🜂', '🜄', '🜁', '☉', '☽'];
+  
+  // Chốt giá trị ngẫu nhiên vào state để satisfy Lint purity
+  const [items] = useState(() => Array.from({ length: 15 }).map(() => ({
+    top: `${Math.random() * 100}%`, 
+    left: `${Math.random() * 100}%`,
+    scale: Math.random() * 0.5 + 0.5,
+    yMove: Math.random() * 100 - 50,
+    xMove: Math.random() * 100 - 50,
+    duration: 15 + Math.random() * 15,
+    fontSize: `${Math.random() * 30 + 15}px`,
+    blur: `blur(${Math.random() * 1.5}px)`
+  })));
+
   return (
     <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
-      {Array.from({ length: 15 }).map((_, i) => (
+      {items.map((item, i) => (
         <motion.div
           key={i}
           initial={{ 
-            top: `${Math.random() * 100}%`, 
-            left: `${Math.random() * 100}%`,
+            top: item.top, 
+            left: item.left,
             opacity: 0,
-            scale: Math.random() * 0.5 + 0.5
+            scale: item.scale
           }}
           animate={{ 
-            y: [0, Math.random() * 100 - 50],
-            x: [0, Math.random() * 100 - 50],
+            y: [0, item.yMove],
+            x: [0, item.xMove],
             opacity: [0, 0.4, 0],
             rotate: [0, 180]
           }}
           transition={{ 
-            duration: 15 + Math.random() * 15, 
+            duration: item.duration, 
             repeat: Infinity, 
             ease: "easeInOut",
             delay: i * 0.5
           }}
           className="absolute text-accent font-serif italic"
           style={{ 
-            fontSize: `${Math.random() * 30 + 15}px`,
-            filter: `blur(${Math.random() * 1.5}px)`
+            fontSize: item.fontSize,
+            filter: item.blur
           }}
         >
           {symbols[i % symbols.length]}
@@ -69,6 +78,14 @@ export const Hero = () => {
   const titleRedRef = useRef<HTMLHeadingElement>(null);
   const titleBlueRef = useRef<HTMLHeadingElement>(null);
   const coreRef = useRef<HTMLDivElement>(null);
+
+  // Chốt giá trị ngẫu nhiên cho các hạt bụi vàng (Gold Dust)
+  const [particles] = useState(() => Array.from({ length: 20 }).map(() => ({
+    startX: Math.random() * 100 + "%",
+    startY: Math.random() * 100 + "%",
+    duration: 10 + Math.random() * 20,
+    delay: Math.random() * 10
+  })));
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -148,29 +165,25 @@ export const Hero = () => {
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-black" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,191,36,0.05)_0%,transparent_70%)]" />
-        {/* Manuscript Texture Overlay */}
         <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none" style={{ backgroundImage: 'url(https://www.transparenttextures.com/patterns/old-mathematics.png)' }} />
       </div>
 
-      {/* The Philosopher's Core */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] pointer-events-none z-10">
         <div ref={coreRef} className="w-full h-full">
            <PhilosopherCore />
         </div>
       </div>
 
-      {/* Floating Alchemical Spirits */}
       <FloatingSymbols />
 
-      {/* Particle Field - Gold Dust */}
       <div className="absolute inset-0 pointer-events-none z-20">
-         {[...Array(20)].map((_, i) => (
+         {particles.map((p, i) => (
            <motion.div
              key={i}
              initial={{ 
                opacity: 0, 
-               x: Math.random() * 100 + "%", 
-               y: Math.random() * 100 + "%" 
+               x: p.startX, 
+               y: p.startY 
              }}
              animate={{ 
                opacity: [0, 0.5, 0],
@@ -178,10 +191,10 @@ export const Hero = () => {
                x: ["-5%", "5%"]
              }}
              transition={{ 
-               duration: 10 + Math.random() * 20, 
+               duration: p.duration, 
                repeat: Infinity, 
                ease: "linear",
-               delay: Math.random() * 10
+               delay: p.delay
              }}
              className="absolute w-1 h-1 bg-accent rounded-full blur-[1px]"
            />
@@ -237,10 +250,8 @@ export const Hero = () => {
           We transmute the code into legacy through the architecture of mastery.
           Digital Alchemy for the post-infinite era.
         </motion.p>
-
       </div>
 
-      {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -261,7 +272,6 @@ export const Hero = () => {
 
       <div className="absolute bottom-0 left-0 right-0 h-[30vh] bg-grid-3d opacity-[0.05] pointer-events-none" />
 
-      {/* Peripheral HUD Modules - Alchemical Version */}
       <div className="absolute left-8 top-1/2 -translate-y-1/2 flex flex-col gap-20 pointer-events-none hidden md:flex">
         <div className="flex flex-col gap-2">
           <span className="text-[8px] font-serif italic text-accent opacity-50 uppercase tracking-[0.5em] vertical-text">
