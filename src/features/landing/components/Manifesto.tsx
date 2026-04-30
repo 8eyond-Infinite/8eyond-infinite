@@ -49,7 +49,7 @@ export const Manifesto = () => {
     >
       {/* Transmutation Circle - Sacred Geometry */}
       <motion.div 
-        style={{ rotate: rotateCircle }}
+        style={{ rotate: rotateCircle, scale: scale8 }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vh] h-[120vh] opacity-[0.03] pointer-events-none"
       >
         <svg viewBox="0 0 100 100" className="w-full h-full stroke-white fill-none">
