@@ -53,6 +53,16 @@ export const Team = () => {
                 <div className="absolute inset-0 bg-accent/5 mix-blend-overlay group-hover:bg-transparent transition-colors duration-700" />
               </div>
 
+              {/* The Infinity Slot (Target Placeholder) */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
+                 <div className="w-64 h-32 border border-accent/20 rounded-full blur-[1px] opacity-30 animate-pulse relative">
+                    <div className="absolute inset-0 border border-accent/10 rounded-full scale-110" />
+                    <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[8px] font-mono text-accent/40 tracking-[0.5em] uppercase">
+                       [ RECEPTACLE_ACTIVE ]
+                    </span>
+                 </div>
+              </div>
+
               {/* Minimalist Tech Accents */}
               <div className="absolute -top-4 -left-4 w-20 h-20 border-t border-l border-accent/40" />
               <div className="absolute -bottom-4 -right-4 w-20 h-20 border-b border-r border-accent/40" />

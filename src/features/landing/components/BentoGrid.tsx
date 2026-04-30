@@ -66,7 +66,7 @@ export const BentoGrid = () => {
         [ SYSTEM_TIME: {systemTime || "INITIALIZING..."} ]
       </div>
 
-      <div className="mx-auto max-w-[1400px]">
+      <div className="mx-auto max-w-[1400px] relative z-20">
         <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div className="max-w-2xl">
             <motion.span 

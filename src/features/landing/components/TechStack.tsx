@@ -107,7 +107,7 @@ export const TechStack = () => {
          <div>[ LATENCY: 0.002MS ]</div>
       </div>
 
-      <div className="relative z-10">
+      <div className="relative z-20">
         <div className="mx-auto max-w-[1400px] px-6 mb-40 text-center">
           <span className="text-[12px] font-mono text-accent tracking-[0.5em] uppercase block mb-6">
             [ PHASE_03 // THE_ENGINE_ROOM ]

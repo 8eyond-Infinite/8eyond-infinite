@@ -45,12 +45,15 @@ export const Manifesto = () => {
     <section 
       ref={sectionRef} 
       id="manifesto" 
-      className="relative min-h-screen bg-black py-40 px-6 flex flex-col justify-center overflow-hidden"
+      className="relative min-h-screen py-40 px-6 flex flex-col justify-center overflow-hidden"
     >
-      {/* Transmutation Circle - Sacred Geometry */}
+      {/* Layer 0: Background Layer (Behind Infinity) */}
+      <div className="absolute inset-0 bg-black z-0" />
+      
+      {/* Sacred Geometry (Part of Background) */}
       <motion.div 
         style={{ rotate: rotateCircle, scale: scale8 }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vh] h-[120vh] opacity-[0.03] pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vh] h-[120vh] opacity-[0.03] pointer-events-none z-0"
       >
         <svg viewBox="0 0 100 100" className="w-full h-full stroke-white fill-none">
           <circle cx="50" cy="50" r="48" strokeWidth="0.1" />
@@ -61,15 +64,16 @@ export const Manifesto = () => {
         </svg>
       </motion.div>
 
-      {/* Alchemical Symbols Bar */}
-      <div className="absolute right-12 top-1/2 -translate-y-1/2 flex flex-col gap-16 z-20 hidden xl:flex">
+      {/* Alchemical Symbols Bar (Should be in front of Infinity) */}
+      <div className="absolute right-12 top-1/2 -translate-y-1/2 flex flex-col gap-16 z-30 hidden xl:flex">
          <AlchemicalSymbol icon="☿" label="MERCURY" />
          <AlchemicalSymbol icon="🜍" label="SULFUR" />
          <AlchemicalSymbol icon="🜔" label="SALT" />
       </div>
 
+      {/* Layer 2: Content Layer (In front of Infinity) */}
       <motion.div 
-        className="mx-auto max-w-[1400px] w-full flex flex-col gap-4 relative z-10"
+        className="mx-auto max-w-[1400px] w-full flex flex-col gap-4 relative z-20"
       >
         <div className="mb-24 relative">
           <div className="flex items-center gap-4 mb-8">
@@ -140,7 +144,7 @@ export const Manifesto = () => {
       </motion.div>
 
       {/* Latin Background Text */}
-      <div className="absolute bottom-20 left-10 text-[6vh] font-serif italic text-white/[0.02] pointer-events-none select-none uppercase tracking-tighter vertical-text">
+      <div className="absolute bottom-20 left-10 text-[6vh] font-serif italic text-white/[0.02] pointer-events-none select-none uppercase tracking-tighter vertical-text z-0">
         Non ducor, duco // Solve et Coagula
       </div>
     </section>

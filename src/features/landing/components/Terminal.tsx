@@ -82,7 +82,7 @@ export const Terminal = () => {
       id="terminal"
       className="relative py-60 bg-black px-6 overflow-hidden perspective-1000"
     >
-      <div className="mx-auto max-w-[1200px]">
+      <div className="mx-auto max-w-[1200px] relative z-20">
         {/* Monumental Header */}
         <div className="mb-32">
           <span className="text-[12px] font-mono text-accent tracking-[0.5em] uppercase block mb-6">

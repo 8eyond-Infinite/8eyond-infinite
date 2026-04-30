@@ -3,8 +3,8 @@
 :root {
   --background: #000000;
   --foreground: #ffffff;
-  --accent: #2962ff;
-  --accent-secondary: #1565c0;
+  --accent: #fbbf24; /* Alchemical Gold */
+  --accent-secondary: #ef4444; /* Philosopher's Red */
   --border: rgba(255, 255, 255, 0.1);
   --card-bg: rgba(255, 255, 255, 0.03);
 }
@@ -45,8 +45,8 @@ body {
 .bg-grid-3d {
   background-size: 50px 50px;
   background-image: 
-    linear-gradient(to right, rgba(56, 189, 248, 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(56, 189, 248, 0.1) 1px, transparent 1px);
+    linear-gradient(to right, rgba(251, 191, 36, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(251, 191, 36, 0.05) 1px, transparent 1px);
   transform: rotateX(60deg) translateY(-200px);
   mask-image: linear-gradient(to bottom, black, transparent);
 }
@@ -54,7 +54,7 @@ body {
 .spotlight {
   background: radial-gradient(
     600px circle at var(--x) var(--y),
-    rgba(56, 189, 248, 0.15),
+    rgba(251, 191, 36, 0.08),
     transparent 80%
   );
 }

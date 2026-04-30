@@ -5,24 +5,64 @@ import { motion, Variants } from "framer-motion";
 import { gsap } from "@/lib/gsap";
 import { Magnetic } from "@/components/ui/Magnetic";
 
-const InfinityIcon = () => (
-  <svg className="w-full h-full" viewBox="0 0 200 100" fill="none">
-    <path
-      className="infinity-path"
-      d="M50,50 C50,20 80,20 100,50 C120,80 150,80 150,50 C150,20 120,20 100,50 C80,80 50,80 50,50 Z"
-      stroke="url(#gradient)"
-      strokeWidth="2"
-      strokeDasharray="500"
-      strokeDashoffset="500"
-    />
-    <defs>
-      <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="var(--accent)" />
-        <stop offset="100%" stopColor="var(--accent-secondary)" />
-      </linearGradient>
-    </defs>
-  </svg>
+const PhilosopherCore = () => (
+  <div className="relative w-full h-full flex items-center justify-center">
+    {/* Concentric Circles */}
+    {[1, 2, 3, 4].map((i) => (
+      <motion.div
+        key={i}
+        animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
+        transition={{ duration: 20 + i * 5, repeat: Infinity, ease: "linear" }}
+        className="absolute border border-accent/10 rounded-full"
+        style={{ width: `${i * 20 + 20}%`, height: `${i * 20 + 20}%` }}
+      />
+    ))}
+    
+    {/* The Master 8 Core is now handled by GlobalInfinity in Layout */}
+    <div className="relative w-64 h-32 z-10 opacity-0">
+      {/* Invisible placeholder to maintain layout if needed */}
+    </div>
+
+  </div>
 );
+
+const FloatingSymbols = () => {
+  const symbols = ['☿', '🜍', '🜔', '🜁', '🜃', '🜂', '🜄', '🜁', '☉', '☽'];
+  return (
+    <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+      {Array.from({ length: 15 }).map((_, i) => (
+        <motion.div
+          key={i}
+          initial={{ 
+            top: `${Math.random() * 100}%`, 
+            left: `${Math.random() * 100}%`,
+            opacity: 0,
+            scale: Math.random() * 0.5 + 0.5
+          }}
+          animate={{ 
+            y: [0, Math.random() * 100 - 50],
+            x: [0, Math.random() * 100 - 50],
+            opacity: [0, 0.4, 0],
+            rotate: [0, 180]
+          }}
+          transition={{ 
+            duration: 15 + Math.random() * 15, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            delay: i * 0.5
+          }}
+          className="absolute text-accent font-serif italic"
+          style={{ 
+            fontSize: `${Math.random() * 30 + 15}px`,
+            filter: `blur(${Math.random() * 1.5}px)`
+          }}
+        >
+          {symbols[i % symbols.length]}
+        </motion.div>
+      ))}
+    </div>
+  );
+};
 
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -32,22 +72,13 @@ export const Hero = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.to(".infinity-path", {
-        strokeDashoffset: 0,
-        duration: 3,
-        ease: "power2.inOut",
-        repeat: -1,
-        yoyo: true,
-      });
-
       gsap.to(coreRef.current, {
         rotation: 360,
-        duration: 25,
+        duration: 40,
         repeat: -1,
         ease: "none",
       });
 
-      // 2. RGB Split Mouse Momentum (Direct DOM manipulation)
       const xToR = gsap.quickTo(titleRedRef.current, "x", { duration: 0.5, ease: "power3" });
       const yToR = gsap.quickTo(titleRedRef.current, "y", { duration: 0.5, ease: "power3" });
       const xToB = gsap.quickTo(titleBlueRef.current, "x", { duration: 0.8, ease: "power3" });
@@ -63,7 +94,6 @@ export const Hero = () => {
         xToB(x * -0.4);
         yToB(y * -0.4);
 
-        // Core Parallax
         gsap.to(coreRef.current, {
           x: x * 2,
           y: y * 2,
@@ -83,9 +113,7 @@ export const Hero = () => {
           pin: true,
           pinSpacing: false,
         },
-        scale: 0.8,
-        rotateX: 15,
-        z: -500,
+        scale: 0.9,
         opacity: 0,
         filter: "blur(20px)",
         ease: "none",
@@ -110,30 +138,57 @@ export const Hero = () => {
     }),
   };
 
-
   return (
     <section
       ref={containerRef}
       id="hero"
       className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-black selection:bg-accent/30"
     >
-      <div className="grain-overlay" />
+      {/* Background Atmosphere */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(2,6,23,0.3)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,191,36,0.05)_0%,transparent_70%)]" />
+        {/* Manuscript Texture Overlay */}
+        <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none" style={{ backgroundImage: 'url(https://www.transparenttextures.com/patterns/old-mathematics.png)' }} />
       </div>
 
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none">
-        <Magnetic strength={0.2}>
-          <div
-            ref={coreRef}
-            className="w-full h-full opacity-30 blur-[40px]"
-          >
-            <InfinityIcon />
-          </div>
-        </Magnetic>
+      {/* The Philosopher's Core */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] pointer-events-none z-10">
+        <div ref={coreRef} className="w-full h-full">
+           <PhilosopherCore />
+        </div>
       </div>
-      <div className="relative z-20 flex flex-col items-center text-center px-6">
+
+      {/* Floating Alchemical Spirits */}
+      <FloatingSymbols />
+
+      {/* Particle Field - Gold Dust */}
+      <div className="absolute inset-0 pointer-events-none z-20">
+         {[...Array(20)].map((_, i) => (
+           <motion.div
+             key={i}
+             initial={{ 
+               opacity: 0, 
+               x: Math.random() * 100 + "%", 
+               y: Math.random() * 100 + "%" 
+             }}
+             animate={{ 
+               opacity: [0, 0.5, 0],
+               y: ["-10%", "110%"],
+               x: ["-5%", "5%"]
+             }}
+             transition={{ 
+               duration: 10 + Math.random() * 20, 
+               repeat: Infinity, 
+               ease: "linear",
+               delay: Math.random() * 10
+             }}
+             className="absolute w-1 h-1 bg-accent rounded-full blur-[1px]"
+           />
+         ))}
+      </div>
+
+      <div className="relative z-30 flex flex-col items-center text-center px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -141,30 +196,29 @@ export const Hero = () => {
           className="flex flex-col items-center gap-6 mb-8"
         >
           <span className="text-[10px] font-mono text-accent tracking-[0.5em] uppercase opacity-70">
-            [ ORIGIN_POINT // GENESIS_00 ]
+            [ MAGNUM_OPUS // THE_BEGINNING ]
           </span>
         </motion.div>
 
         <div className="relative mb-10">
           <h1
             ref={titleBlueRef}
-            className="absolute inset-0 text-7xl font-black tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-blue-500 opacity-50 mix-blend-screen pointer-events-none uppercase italic"
+            className="absolute inset-0 text-7xl font-black tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-accent-secondary opacity-30 mix-blend-screen pointer-events-none uppercase italic"
           >
             8eyond
           </h1>
           <h1
             ref={titleRedRef}
-            className="absolute inset-0 text-7xl font-black tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-red-500 opacity-50 mix-blend-screen pointer-events-none uppercase italic"
+            className="absolute inset-0 text-7xl font-black tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-accent opacity-30 mix-blend-screen pointer-events-none uppercase italic"
           >
             8eyond
           </h1>
-          <h1 className="relative text-7xl font-black tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-white uppercase italic">
+          <h1 className="relative text-7xl font-black tracking-[-0.04em] sm:text-8xl lg:text-[10rem] leading-none text-white uppercase italic drop-shadow-[0_0_30px_rgba(251,191,36,0.2)]">
             8eyond<br />
             <span
-              className="text-transparent bg-clip-text bg-gradient-to-r from-transparent via-white/50 to-transparent bg-[length:200%_100%] animate-shimmer-fast"
+              className="text-transparent bg-clip-text bg-gradient-to-r from-transparent via-accent/50 to-transparent bg-[length:200%_100%] animate-shimmer-fast"
               style={{
-                WebkitTextStroke: "1px rgba(255,255,255,0.2)",
-                textShadow: "0 0 20px rgba(6,182,212,0.1)"
+                WebkitTextStroke: "1px rgba(251,191,36,0.3)",
               }}
             >
               Infinite.
@@ -179,22 +233,22 @@ export const Hero = () => {
           animate="visible"
           className="mx-auto mb-12 max-w-lg text-sm md:text-base text-zinc-500 font-light leading-relaxed tracking-wide"
         >
-          Transcending the boundaries of traditional computation.
-          We build the infrastructure for the next epoch of digital sentience.
-          Pure logic. Boundless scale. Infinite vision.
+          Transcending the lead of traditional logic. 
+          We transmute the code into legacy through the architecture of mastery.
+          Digital Alchemy for the post-infinite era.
         </motion.p>
 
       </div>
 
-      {/* Scroll Indicator - Strictly pinned to bottom to avoid overlap */}
+      {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-30"
       >
-        <span className="text-[8px] font-mono text-zinc-700 uppercase tracking-[0.8em] whitespace-nowrap">
-          [ Scroll ]
+        <span className="text-[8px] font-mono text-accent uppercase tracking-[0.8em] whitespace-nowrap opacity-50">
+          [ DESCEND ]
         </span>
         <div className="w-px h-10 bg-white/5 relative overflow-hidden">
           <motion.div
@@ -205,59 +259,26 @@ export const Hero = () => {
         </div>
       </motion.div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-[30vh] bg-grid-3d opacity-20 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-[30vh] bg-grid-3d opacity-[0.05] pointer-events-none" />
 
-      {/* Peripheral HUD Modules - Left Side */}
+      {/* Peripheral HUD Modules - Alchemical Version */}
       <div className="absolute left-8 top-1/2 -translate-y-1/2 flex flex-col gap-20 pointer-events-none hidden md:flex">
         <div className="flex flex-col gap-2">
-          <span className="text-[8px] font-mono text-accent opacity-50 uppercase tracking-[0.5em] vertical-text">
-            [ Latitude: 43.1209° N ]
+          <span className="text-[8px] font-serif italic text-accent opacity-50 uppercase tracking-[0.5em] vertical-text">
+            Solve et Coagula
           </span>
           <div className="w-px h-24 bg-gradient-to-b from-accent/40 via-accent/10 to-transparent mx-auto" />
         </div>
-        <div className="flex flex-col gap-4">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="w-1 h-1 bg-white/10 rounded-full" />
-          ))}
-        </div>
       </div>
 
-      {/* Peripheral HUD Modules - Right Side */}
       <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-20 pointer-events-none hidden md:flex items-end">
         <div className="flex flex-col gap-2 items-end">
-          <span className="text-[8px] font-mono text-accent opacity-50 uppercase tracking-[0.5em] vertical-text">
-            [ Longitude: 77.6197° W ]
+          <span className="text-[8px] font-serif italic text-accent opacity-50 uppercase tracking-[0.5em] vertical-text">
+            Magnum Opus
           </span>
           <div className="w-px h-24 bg-gradient-to-b from-accent/40 via-accent/10 to-transparent mx-auto" />
         </div>
-        <div className="text-[7px] font-mono text-zinc-800 vertical-text tracking-[1em] uppercase">
-          Data_Stream_Synchronized
-        </div>
       </div>
-
-      <div className="absolute top-6 right-8 text-[7px] font-mono text-white/20 tracking-[0.2em] pointer-events-none uppercase">
-        [ 43.1209° N // 77.6197° W ]
-      </div>
-      <div className="absolute bottom-6 left-8 text-[7px] font-mono text-white/20 tracking-[0.2em] pointer-events-none uppercase">
-        [ SYS_SYNC: 98.4% ]
-      </div>
-
-      {/* Hairline Scanline - Very slow and subtle */}
-      <motion.div
-        animate={{ y: ["0vh", "100vh"] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent pointer-events-none z-10"
-      />
-
-      {/* Vertical Branding Backdrop - Further reduced opacity */}
-      <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[15vh] font-black text-white/[0.015] vertical-text select-none pointer-events-none uppercase tracking-tighter">
-        8eyond
-      </div>
-      <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[15vh] font-black text-white/[0.015] vertical-text select-none pointer-events-none uppercase tracking-tighter">
-        Infinite
-      </div>
-
-      <div className="absolute bottom-0 left-0 right-0 h-[30vh] bg-grid-3d opacity-[0.15] pointer-events-none" />
     </section>
   );
 };
