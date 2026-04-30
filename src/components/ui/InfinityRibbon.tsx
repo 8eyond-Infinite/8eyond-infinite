@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useMemo, useState } from "react";
+import React, { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, MeshDistortMaterial } from "@react-three/drei";
 import * as THREE from "three";
@@ -8,7 +8,6 @@ import * as THREE from "three";
 const Ribbon = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   
-  // Create an Infinity-shaped path (Figure-8)
   const curve = useMemo(() => {
     const points = [];
     for (let i = 0; i <= 64; i++) {
@@ -21,15 +20,11 @@ const Ribbon = () => {
     return new THREE.CatmullRomCurve3(points, true);
   }, []);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (!meshRef.current) return;
-    const t = state.clock.getElapsedTime();
-    
-    // Subtle rotation and float
+    const t = performance.now() / 1000;
     meshRef.current.rotation.y = t * 0.2;
     meshRef.current.rotation.z = Math.sin(t * 0.5) * 0.1;
-
-    // Follow scroll
     const scrollY = typeof window !== "undefined" ? window.scrollY : 0;
     meshRef.current.position.y = -scrollY * 0.005;
   });
@@ -52,14 +47,19 @@ const Ribbon = () => {
 };
 
 export const InfinityRibbon = () => {
-  // Chốt giá trị ngẫu nhiên vào state để satisfy Lint purity
-  const [particlePositions] = useState(() => 
-    Array.from({ length: 50 }).map(() => [
-      (Math.random() - 0.5) * 50,
-      (Math.random() - 0.5) * 50,
-      (Math.random() - 0.5) * 20
-    ] as [number, number, number])
-  );
+  const [particlePositions, setParticlePositions] = useState<[number, number, number][]>([]);
+
+  useEffect(() => {
+    setParticlePositions(
+      Array.from({ length: 50 }).map(() => [
+        (Math.random() - 0.5) * 50,
+        (Math.random() - 0.5) * 50,
+        (Math.random() - 0.5) * 20
+      ] as [number, number, number])
+    );
+  }, []);
+
+  if (particlePositions.length === 0) return null;
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[-1] opacity-40">
@@ -71,7 +71,6 @@ export const InfinityRibbon = () => {
         
         <Ribbon />
         
-        {/* Particle dust in 3D space */}
         <Float speed={2} rotationIntensity={1} floatIntensity={1}>
            {particlePositions.map((pos, i) => (
              <mesh key={i} position={pos}>

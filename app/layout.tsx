@@ -5,6 +5,7 @@ import { SmoothScrollProvider } from "@/providers/SmoothScrollProvider";
 import { CustomCursor } from "@/components/layout/CustomCursor";
 import { Navbar } from "@/features/navigation/components/Navbar";
 import { Footer } from "@/features/navigation/components/Footer";
+import { Preloader } from "@/components/ui/Preloader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black selection:bg-accent/30 selection:text-white`}>
+        <Preloader />
         <SmoothScrollProvider>
           <GlobalInfinity />
           <CustomCursor />
