@@ -34,15 +34,25 @@ export const Navbar = () => {
         {/* Top Left: Monumental Branding */}
         <div className="flex items-center gap-6 pointer-events-auto">
           <Magnetic strength={0.1}>
-            <div className="glass-refraction flex items-center px-4 py-2 md:px-5 md:py-2.5 border border-white/10 bg-black/40 backdrop-blur-3xl rounded-[2px] shadow-2xl group cursor-none">
-               <LogoInfinite />
-               <div className="flex flex-col ml-3">
-                  <div className="flex items-baseline gap-1.5">
-                     <span className="text-base md:text-lg font-black tracking-[-0.05em] uppercase italic text-white leading-none">8eyond</span>
-                     <span className="text-[8px] md:text-[9px] font-black tracking-[0.4em] uppercase text-accent leading-none opacity-80">Infinite</span>
-                  </div>
-                  <div className="h-[1px] w-0 group-hover:w-full bg-accent mt-1 transition-all duration-500 opacity-50" />
+            <div className="glass-refraction flex items-center px-4 py-2 md:px-5 md:py-2.5 border border-white/10 bg-black/40 backdrop-blur-3xl rounded-[2px] shadow-2xl group cursor-none overflow-hidden relative">
+               <div className="flex items-center gap-2 relative z-10">
+                  <span className="text-base md:text-lg font-black tracking-[-0.05em] uppercase italic leading-none">
+                     <span className="text-accent drop-shadow-[0_0_8px_var(--accent)] transition-all duration-500 group-hover:brightness-125">8</span>
+                     <span className="text-white">eyond</span>
+                  </span>
+                  
+                  <span 
+                     className="text-base md:text-lg font-black tracking-[-0.05em] uppercase italic leading-none text-transparent transition-all duration-500"
+                     style={{ 
+                        WebkitTextStroke: "1px rgba(255,255,255,0.2)",
+                     }}
+                  >
+                     <span className="group-hover:text-white/80 transition-colors duration-700">Infinite</span>
+                  </span>
                </div>
+               
+               {/* Ambient Glow on Hover */}
+               <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             </div>
           </Magnetic>
         </div>
