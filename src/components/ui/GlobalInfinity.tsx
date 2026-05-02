@@ -5,12 +5,15 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 }
 
 export const GlobalInfinity = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const outerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const fireRef = useRef<SVGPathElement>(null);
   const [isBurning, setIsBurning] = useState(false);
@@ -18,15 +21,16 @@ export const GlobalInfinity = () => {
   const [currentZIndex, setCurrentZIndex] = useState(20000);
 
   useGSAP(() => {
-    if (!containerRef.current || !pathRef.current) return;
+    if (!outerRef.current || !innerRef.current || !pathRef.current) return;
 
-    const container = containerRef.current;
+    const outer = outerRef.current;
+    const inner = innerRef.current;
     const path = pathRef.current;
     const firePath = fireRef.current;
 
     const pathLength = path.getTotalLength();
 
-    gsap.set(container, {
+    gsap.set(outer, {
       x: 0,
       y: 0,
       scale: 0.5,
@@ -38,6 +42,18 @@ export const GlobalInfinity = () => {
       strokeDasharray: pathLength,
       strokeDashoffset: pathLength
     });
+
+    // Bobbing animation on INNER container
+    gsap.to(inner, {
+      y: "+=20",
+      x: "+=8",
+      rotate: "+=4",
+      duration: 4,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+
     const handleProgress = (e: any) => {
       const progress = e.detail;
       const offset = pathLength - (pathLength * (progress / 100));
@@ -59,7 +75,7 @@ export const GlobalInfinity = () => {
         }
       });
 
-      tl.to(container, {
+      tl.to(outer, {
         x: "18vw",
         y: "10vh",
         scale: 1.1,
@@ -75,16 +91,16 @@ export const GlobalInfinity = () => {
     const buildJourney = () => {
       ScrollTrigger.refresh();
 
+      // --- SECTION WAYPOINTS (TIMELINE MỚI SIÊU MƯỢT) ---
       const sections = [
-        { id: "hero", x: "18vw", y: "10vh", rotate: -10, scale: 1.1 },
-        { id: "vision", x: "15vw", y: "5vh", rotate: 0, scale: 1.2 },
-        { id: "manifesto", x: "35%", y: "15vh", rotate: 90, scale: 0.7 },
-        { id: "projects", x: "-20%", y: "-10vh", rotate: 180, scale: 1.3 },
-        { id: "tech", x: "20%", y: "10vh", rotate: 220, scale: 0.8 },
-        { id: "terminal", x: "0%", y: "5vh", rotate: 280, scale: 1.1 },
-        { id: "team-trigger", x: "-15vw", y: "-15vh", rotate: 320, scale: 1.4 },
-        { id: "team", x: "-25vw", y: "35vh", rotate: 360, scale: 1.2 },
-        { id: "footer", x: "0%", y: "45vh", rotate: 540, scale: 0 }
+        { id: "hero", rotate: -10, scale: 1.1, x: "18vw", y: "10vh" },
+        { id: "vision", rotate: 15, scale: 1.2, x: "15vw", y: "5vh" },
+        { id: "manifesto", rotate: 90, scale: 0.8, x: "35vw", y: "15vh" },
+        { id: "projects", rotate: 180, scale: 1.3, x: "-20vw", y: "-10vh" },
+        { id: "tech", rotate: 240, scale: 0.9, x: "20vw", y: "10vh" },
+        { id: "terminal", rotate: 280, scale: 1.2, x: "0vw", y: "5vh" },
+        { id: "team", rotate: 360, scale: 1.7, x: "-25vw", y: "35vh" },
+        { id: "footer", rotate: 540, scale: 0, x: "0vw", y: "45vh" }
       ];
 
       const masterTl = gsap.timeline({
@@ -92,32 +108,32 @@ export const GlobalInfinity = () => {
           trigger: "body",
           start: "top top",
           end: "bottom bottom",
-          scrub: 1.5,
+          scrub: 2,
           invalidateOnRefresh: true
         }
       });
 
+      // --- CHUYẾN DU HÀNH DUY NHẤT (NO CONFLICT) ---
       sections.forEach((config, i) => {
         if (i === 0) return;
-        const targetEl = document.getElementById(config.id);
-        if (!targetEl) return;
-
-        masterTl.to(containerRef.current, {
+        
+        masterTl.to(outer, {
           x: config.x,
           y: config.y,
           rotate: config.rotate,
           scale: config.scale,
           opacity: config.id === "footer" ? 0 : 1,
-          duration: config.id === "team-trigger" ? 3 : 1,
-          ease: "none"
+          duration: 1,
+          ease: "power1.inOut"
         });
       });
 
-      const teamEl = document.getElementById("team");
-      if (teamEl) {
+      // --- CHỈ DÙNG TRIGGER ĐỂ KÍCH HOẠT HIỆU ỨNG (KHÔNG TOUCH SCALE) ---
+      const teamSection = document.getElementById("team");
+      if (teamSection) {
         ScrollTrigger.create({
-          trigger: teamEl,
-          start: "top 30%",
+          trigger: teamSection,
+          start: "top 40%",
           onEnter: () => {
             setIsBurning(true);
             setCurrentZIndex(100);
@@ -139,11 +155,11 @@ export const GlobalInfinity = () => {
       window.removeEventListener("alchemist:complete", handleComplete);
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
-  }, { scope: containerRef });
+  }, { scope: outerRef });
 
   return (
     <div
-      ref={containerRef}
+      ref={outerRef}
       style={{ zIndex: currentZIndex }}
       className="fixed inset-0 pointer-events-none flex items-center justify-center overflow-visible"
     >
@@ -159,7 +175,7 @@ export const GlobalInfinity = () => {
         .fire-path { animation: infinity-fire-flicker 2s infinite alternate ease-in-out; }
       `}</style>
 
-      <div className="relative w-64 h-32 md:w-[450px] md:h-[225px] overflow-visible">
+      <div ref={innerRef} className="relative w-64 h-32 md:w-[450px] md:h-[225px] overflow-visible">
         <svg viewBox="0 0 200 100" className="w-full h-full overflow-visible">
           <path
             d="M50,50 C50,20 80,20 100,50 C120,80 150,80 150,50 C150,20 120,20 100,50 C80,80 50,80 50,50 Z"
@@ -187,6 +203,7 @@ export const GlobalInfinity = () => {
             className="fire-path"
             style={{ opacity: 0 }}
           />
+
           <circle r="1.5" fill="white" className="shadow-[0_0_10px_#fff]">
             <animateMotion
               dur="2.5s"
