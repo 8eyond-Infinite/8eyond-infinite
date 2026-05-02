@@ -1,4 +1,4 @@
-# 8eyond-Infinite // [ THE_COLLECTIVE ]
+# 8eyond-Infinite
 
 > **"Solve et Coagula: We transmute the chaos of logic into the gold of legacy."**
 

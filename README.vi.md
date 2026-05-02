@@ -1,4 +1,4 @@
-# 8eyond-Infinite // [ THỰC THỂ TẬP THỂ ]
+# 8eyond-Infinite
 
 > **"Solve et Coagula: Chúng tôi phân rã logic thô và tái hợp thành tinh hoa của thực tại."**
 
