@@ -1,12 +1,10 @@
 # 8eyond-Infinite // [ THỰC THỂ TẬP THỂ ]
 
-> **"Chúng tôi chuyển hóa lớp chì của logic thô thành vàng ròng của thực tại vô hạn."**
+> **"Solve et Coagula: Chúng tôi phân rã logic thô và tái hợp thành tinh hoa của thực tại."**
+
+**8eyond-Infinite** là một thánh đường của sự tinh thông kiến trúc, nơi sự hỗn loạn của phân rã gặp gỡ sự chính xác của bậc thầy. Từ những tàn tro đến thực tại, chúng tôi vượt qua mọi giới hạn của sự hữu hạn.
 
 [English](./README.md) | [Tiếng Việt]
-
----
-
-**8eyond-Infinite** là một tập thể giả kim kỹ thuật số chuyên tâm vào việc kiến tạo các tầng nền tảng của tính toán hậu vô hạn. Chúng tôi tồn tại để chuyển hóa logic số thuần túy thành kiến trúc của một thực tại mới.
 
 ---
 
@@ -17,4 +15,4 @@ Mọi hành vi truy cập hoặc sao chép trái phép "lò rèn" này đều b�
 
 ---
 
-**© 2026 8eyond_Infinite // Hiện diện bởi [THE_COLLECTIVE]**
+**© 2026 8eyond_Infinite**

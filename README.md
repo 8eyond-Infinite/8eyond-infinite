@@ -1,12 +1,10 @@
 # 8eyond-Infinite // [ THE_COLLECTIVE ]
 
-> **"We transform the lead of raw logic into the gold of infinite reality."**
+> **"Solve et Coagula: We transmute the chaos of logic into the gold of legacy."**
+
+**8eyond-Infinite** is a sanctuary for architectural excellence where the chaos of destruction meets the precision of mastery. From ruins to reality, we transcend the boundaries of the finite.
 
 [English] | [Tiếng Việt](./README.vi.md)
-
----
-
-**8eyond-Infinite** is an alchemical collective dedicated to engineering the foundational layers of post-infinite computation. We exist to transmute raw digital logic into the architecture of a new reality.
 
 ---
 
@@ -17,4 +15,4 @@ Unauthorized access or duplication of this forge is strictly prohibited. It exis
 
 ---
 
-**© 2026 8eyond_Infinite // Manifested by [THE_COLLECTIVE]**
+**© 2026 8eyond_Infinite**
