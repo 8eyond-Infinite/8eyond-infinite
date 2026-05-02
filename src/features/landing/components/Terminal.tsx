@@ -78,9 +78,9 @@ export const Terminal = () => {
       });
 
       // Phase Label Scramble Typewriter
-      const phaseLabel = document.querySelector(".phase-label-05");
-      const phaseCursor = document.querySelector(".phase-cursor-05");
-      const fullText = "[ PHASE_05 // COMMAND_NEXUS ]";
+      const phaseLabel = document.querySelector(".phase-label-06");
+      const phaseCursor = document.querySelector(".phase-cursor-06");
+      const fullText = "[ PHASE_06 // THE_TRANSMUTATION ]";
       const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]//_!@#$%^&*";
       
       gsap.to({}, {
@@ -161,10 +161,10 @@ export const Terminal = () => {
         <div className="mb-32">
           <div className="flex items-center gap-4 mb-8 w-full">
             <div className="flex items-center font-mono text-accent whitespace-nowrap">
-              <span className="text-[12px] tracking-[0.6em] uppercase phase-label-05">
+              <span className="text-[12px] tracking-[0.6em] uppercase phase-label-06">
                 {/* GSAP will fill this */}
               </span>
-              <span className="text-[12px] phase-cursor-05 opacity-0">_</span>
+              <span className="text-[12px] phase-cursor-06 opacity-0">_</span>
             </div>
             <div className="h-px flex-1 bg-gradient-to-r from-accent/50 to-transparent" />
           </div>
@@ -177,11 +177,11 @@ export const Terminal = () => {
 
           <div className="flex flex-col md:flex-row gap-12 items-start justify-between mt-12">
             <p className="text-xl md:text-3xl font-light text-zinc-400 max-w-2xl leading-tight tracking-tight">
-              The interface of the Great Work. Here, we execute the protocols of <span className="text-accent italic">conscious creation</span>, bridging the void between thought and reality.
+              The engine of active transmutation. Here, we bridge the void between thought and reality, executing the <span className="text-accent italic">protocols of conscious creation</span> into the digital stream.
             </p>
             <div className="text-[8px] font-mono text-zinc-700 max-w-[150px] leading-relaxed opacity-50 uppercase border-l border-white/10 pl-6">
-              Command Protocol // 
               Root: 0x8_INFINITE // 
+              Sector: 06_TRANSMUTE // 
               Kernel: STABLE_FLUX
               <br /><br />
               Nexus Status: ACTIVE

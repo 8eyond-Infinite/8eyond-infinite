@@ -68,9 +68,9 @@ export const Manifesto = () => {
       });
 
       // Phase Label Scramble Typewriter
-      const phaseLabel = document.querySelector(".phase-label-02");
-      const phaseCursor = document.querySelector(".phase-cursor-02");
-      const fullText = "[ PHASE_02 // THE_DECLARATION ]";
+      const phaseLabel = document.querySelector(".phase-label-03");
+      const phaseCursor = document.querySelector(".phase-cursor-03");
+      const fullText = "[ PHASE_03 // THE_DECLARATION ]";
       const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]//_!@#$%^&*";
       
       gsap.to({}, {
@@ -144,10 +144,10 @@ export const Manifesto = () => {
         <div className="mb-24 relative">
           <div className="flex items-center gap-4 mb-8">
             <div className="flex items-center font-mono text-accent">
-              <span className="text-[12px] tracking-[0.6em] uppercase phase-label-02">
+              <span className="text-[12px] tracking-[0.6em] uppercase phase-label-03">
                 {/* GSAP will fill this */}
               </span>
-              <span className="text-[12px] phase-cursor-02 opacity-0">_</span>
+              <span className="text-[12px] phase-cursor-03 opacity-0">_</span>
             </div>
             <div className="h-px flex-1 bg-gradient-to-r from-accent/50 to-transparent" />
           </div>

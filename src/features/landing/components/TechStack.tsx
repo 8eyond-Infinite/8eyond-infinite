@@ -158,9 +158,9 @@ export const TechStack = () => {
       });
 
       // Phase Label Scramble Typewriter
-      const phaseLabel = document.querySelector(".phase-label-04");
-      const phaseCursor = document.querySelector(".phase-cursor-04");
-      const fullText = "[ PHASE_04 // THE_ELEMENTS ]";
+      const phaseLabel = document.querySelector(".phase-label-05");
+      const phaseCursor = document.querySelector(".phase-cursor-05");
+      const fullText = "[ PHASE_05 // THE_ELEMENTS ]";
       const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]//_!@#$%^&*";
 
       gsap.to({}, {
@@ -214,7 +214,7 @@ export const TechStack = () => {
 
       {/* Decorative HUD corners */}
       <div className="absolute top-20 left-20 font-mono text-[8px] text-zinc-700 space-y-1 opacity-50">
-        <div>[ SECTOR_04 // ENGINE_ROOM ]</div>
+        <div>[ SECTOR_05 // ENGINE_ROOM ]</div>
         <div>[ VOLTAGE: 220V // LOAD: NOMINAL ]</div>
       </div>
       <div className="absolute bottom-20 right-20 font-mono text-[8px] text-accent/40 space-y-1 text-right">
@@ -226,10 +226,10 @@ export const TechStack = () => {
         <div className="mx-auto max-w-[1400px] px-6 mb-40 text-left">
           <div className="flex items-center gap-4 mb-8 w-full">
             <div className="flex items-center font-mono text-accent whitespace-nowrap">
-              <span className="text-[12px] tracking-[0.6em] uppercase phase-label-04">
+              <span className="text-[12px] tracking-[0.6em] uppercase phase-label-05">
                 {/* GSAP will fill this */}
               </span>
-              <span className="text-[12px] phase-cursor-04 opacity-0">_</span>
+              <span className="text-[12px] phase-cursor-05 opacity-0">_</span>
             </div>
             <div className="h-px flex-1 bg-gradient-to-r from-accent/50 to-transparent" />
           </div>

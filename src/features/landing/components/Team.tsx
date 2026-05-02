@@ -43,9 +43,9 @@ export const Team = () => {
           scrub: true
         }
       });
-      const phaseLabel = document.querySelector(".phase-label-06");
-      const phaseCursor = document.querySelector(".phase-cursor-06");
-      const fullText = "[ PHASE_06 // THE_ARCHITECT ]";
+      const phaseLabel = document.querySelector(".phase-label-07");
+      const phaseCursor = document.querySelector(".phase-cursor-07");
+      const fullText = "[ PHASE_07 // THE_ARCHITECT ]";
       const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]//_!@#$%^&*";
 
       gsap.to({}, {
@@ -247,9 +247,9 @@ export const Team = () => {
                 className="flex items-center gap-4 mb-8 w-full"
               >
                 <div className="flex items-center font-mono text-accent whitespace-nowrap">
-                  <span className="text-[12px] tracking-[0.6em] uppercase phase-label-06">
+                  <span className="text-[12px] tracking-[0.6em] uppercase phase-label-07">
                   </span>
-                  <span className="text-[12px] phase-cursor-06 opacity-0">_</span>
+                  <span className="text-[12px] phase-cursor-07 opacity-0">_</span>
                 </div>
                 <div className="h-px flex-1 bg-gradient-to-r from-accent/50 to-transparent" />
               </motion.div>
@@ -273,14 +273,14 @@ export const Team = () => {
             >
               <div className="flex flex-col md:flex-row gap-12 items-start justify-between">
                 <p className="text-lg md:text-xl text-zinc-400 font-light leading-relaxed italic max-w-md">
-                  &quot;I am the Alchemist of the digital void. I transform the lead of raw logic into the gold of infinite reality.&quot;
+                  The masters behind the catalyst. A collective of architects dedicated to the perpetual pursuit of <span className="text-accent">digital absolute gold</span> through technical sovereignty.
                 </p>
                 <div className="text-[8px] font-mono text-zinc-700 max-w-[150px] leading-relaxed opacity-50 uppercase border-l border-white/10 pl-6">
-                  Architect Identity //
-                  Origin: 8EYOND_SOURCE //
-                  Auth: MASTER_ALCHEMIST
+                  Architectural Mastery // 
+                  Auth: MASTER_ALCHEMIST // 
+                  Goal: INFINITE_LEGACY
                   <br /><br />
-                  Entity Status: AWAKENED
+                  System Status: NOMINAL
                 </div>
               </div>
 

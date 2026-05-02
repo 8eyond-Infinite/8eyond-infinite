@@ -6,18 +6,16 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+gsap.registerPlugin(ScrollTrigger);
 
 const SECTIONS = [
-  { id: "hero", label: "PRIMA_MATERIA", code: "I" },
-  { id: "vision", label: "THE_CRUCIBLE", code: "II" },
-  { id: "manifesto", label: "PHILOSOPHIA", code: "III" },
-  { id: "projects", label: "TRANSFORMATION", code: "IV" },
-  { id: "tech", label: "TRANSMUTATION", code: "V" },
-  { id: "terminal", label: "THE_GREAT_WORK", code: "VI" },
-  { id: "team", label: "THE_ALCHEMISTS", code: "VII" },
+  { id: "hero", label: "PRIMA_MATERIA", code: "01" },
+  { id: "vision", label: "THE_PRINCIPLES", code: "02" },
+  { id: "manifesto", label: "THE_DECLARATION", code: "03" },
+  { id: "projects", label: "THE_COAGULATION", code: "04" },
+  { id: "tech", label: "THE_ELEMENTS", code: "05" },
+  { id: "terminal", label: "THE_TRANSMUTATION", code: "06" },
+  { id: "team", label: "THE_ARCHITECT", code: "07" },
 ];
 
 export const ScrollTimeline = () => {
@@ -33,17 +31,16 @@ export const ScrollTimeline = () => {
         end: "bottom center",
         onEnter: () => {
           setActiveSection(section.id);
-          // Tính toán phần trăm dựa trên index của section (0 đến 100%)
-          gsap.to({}, { 
-            duration: 0.5, 
-            onUpdate: () => setProgress((index / (SECTIONS.length - 1)) * 100) 
+          gsap.to({}, {
+            duration: 0.5,
+            onUpdate: () => setProgress((index / (SECTIONS.length - 1)) * 100)
           });
         },
         onEnterBack: () => {
           setActiveSection(section.id);
-          gsap.to({}, { 
-            duration: 0.5, 
-            onUpdate: () => setProgress((index / (SECTIONS.length - 1)) * 100) 
+          gsap.to({}, {
+            duration: 0.5,
+            onUpdate: () => setProgress((index / (SECTIONS.length - 1)) * 100)
           });
         },
       });
@@ -58,10 +55,7 @@ export const ScrollTimeline = () => {
 
   return (
     <div ref={containerRef} className="fixed right-8 top-1/2 -translate-y-1/2 z-[100] hidden xl:flex flex-col items-end gap-10 pointer-events-none">
-      {/* Background Track - Toàn bộ chiều cao của container dots */}
       <div className="absolute right-[4px] top-1 bottom-1 w-[1.5px] bg-white/5" />
-
-      {/* Progress Line - Liquid Gold Filling */}
       <div className="absolute right-[4px] top-1 bottom-1 w-[1.5px] origin-top overflow-hidden">
         <motion.div
           animate={{ height: `${progress}%` }}
@@ -69,8 +63,6 @@ export const ScrollTimeline = () => {
           className="w-full bg-gradient-to-b from-accent/40 via-accent to-accent shadow-[0_0_15px_#fbbf24]"
         />
       </div>
-
-      {/* Section Markers */}
       {SECTIONS.map((section) => (
         <a
           key={section.id}
@@ -87,7 +79,6 @@ export const ScrollTimeline = () => {
             }
           }}
         >
-          {/* Label Text */}
           <div className={`
             flex flex-col items-end transition-all duration-700
             ${activeSection === section.id ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4 group-hover:opacity-80 group-hover:translate-x-0"}
@@ -97,12 +88,10 @@ export const ScrollTimeline = () => {
               {section.label}
             </span>
           </div>
-
-          {/* Marker Point - Diamond Shape */}
           <div className={`
             relative w-[9px] h-[9px] border transition-all duration-500 z-10
-            ${activeSection === section.id 
-              ? "border-accent rotate-45 bg-accent/30 shadow-[0_0_15px_#fbbf24]" 
+            ${activeSection === section.id
+              ? "border-accent rotate-45 bg-accent/30 shadow-[0_0_15px_#fbbf24]"
               : "border-white/10 rotate-0 bg-transparent group-hover:border-accent/40 group-hover:rotate-45"
             }
           `}>

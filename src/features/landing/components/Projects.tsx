@@ -159,9 +159,9 @@ export const Projects = () => {
       });
 
       // Phase Label Scramble Typewriter
-      const phaseLabel = document.querySelector(".phase-label-03");
-      const phaseCursor = document.querySelector(".phase-cursor-03");
-      const fullText = "[ PHASE_03 // THE_FORGE ]";
+      const phaseLabel = document.querySelector(".phase-label-04");
+      const phaseCursor = document.querySelector(".phase-cursor-04");
+      const fullText = "[ PHASE_04 // THE_COAGULATION ]";
       const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]//_!@#$%^&*";
       
       gsap.to({}, {
@@ -212,10 +212,10 @@ export const Projects = () => {
         <div className="mb-32 relative">
           <div className="flex items-center gap-4 mb-8 w-full">
             <div className="flex items-center font-mono text-accent whitespace-nowrap">
-              <span className="text-[12px] tracking-[0.6em] uppercase phase-label-03">
+              <span className="text-[12px] tracking-[0.6em] uppercase phase-label-04">
                 {/* GSAP will fill this */}
               </span>
-              <span className="text-[12px] phase-cursor-03 opacity-0">_</span>
+              <span className="text-[12px] phase-cursor-04 opacity-0">_</span>
             </div>
             <div className="h-px flex-1 bg-gradient-to-r from-accent/50 to-transparent" />
           </div>
@@ -228,10 +228,12 @@ export const Projects = () => {
 
           <div className="flex flex-col md:flex-row gap-12 items-start justify-between mt-12">
             <p className="text-xl md:text-3xl font-light text-zinc-400 max-w-2xl leading-tight tracking-tight">
-              The furnace where logic meets matter. We catalyze raw potential into <span className="text-accent italic">sovereign digital artifacts</span>, standardized by the 8-fold path of excellence.
+              The distilled essence of our journey. <span className="text-accent italic">Sovereign digital artifacts</span> representing the final crystallization of vision into reality.
             </p>
             <div className="text-[8px] font-mono text-zinc-700 max-w-[150px] leading-relaxed opacity-50 uppercase border-l border-white/10 pl-6">
-              Project Forge v3.0 // Currently Distilling 12 Core Transmutations.
+              Coagulation Status // 
+              Artifacts: 0x8_STABLE // 
+              Quality: ABSOLUTE_GOLD
               <br /><br />
               Status: Operational
             </div>

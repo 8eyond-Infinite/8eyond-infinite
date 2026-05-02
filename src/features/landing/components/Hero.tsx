@@ -229,7 +229,7 @@ export const Hero = () => {
           className="mb-8 self-center"
         >
           <span className="text-[10px] font-mono text-accent tracking-[0.5em] uppercase opacity-60">
-            [ MAGNUM_OPUS // THE_BEGINNING ]
+            [ PHASE_01 // PRIMA_MATERIA ]
           </span>
         </motion.div>
 

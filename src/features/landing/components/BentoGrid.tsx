@@ -80,9 +80,9 @@ export const BentoGrid = () => {
       });
 
       // Phase Label Scramble Typewriter
-      const phaseLabel = document.querySelector(".phase-label-01");
-      const phaseCursor = document.querySelector(".phase-cursor-01");
-      const fullText = "[ PHASE_01 // THE_NEXUS_OF_REALITY ]";
+      const phaseLabel = document.querySelector(".phase-label-02");
+      const phaseCursor = document.querySelector(".phase-cursor-02");
+      const fullText = "[ PHASE_02 // THE_PRINCIPLES ]";
       const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]//_!@#$%^&*";
       
       gsap.to({}, {
@@ -140,10 +140,10 @@ export const BentoGrid = () => {
           <div className="w-full relative">
             <div className="flex items-center gap-4 mb-8 w-full">
               <div className="flex items-center font-mono text-accent opacity-60 whitespace-nowrap">
-                <span className="text-[12px] tracking-[0.8em] uppercase phase-label-01">
+                <span className="text-[12px] tracking-[0.8em] uppercase phase-label-02">
                   {/* GSAP will fill this */}
                 </span>
-                <span className="text-[12px] phase-cursor-01 opacity-0">_</span>
+                <span className="text-[12px] phase-cursor-02 opacity-0">_</span>
               </div>
               <div className="h-px flex-1 bg-gradient-to-r from-accent/50 to-transparent" />
             </div>
@@ -155,11 +155,11 @@ export const BentoGrid = () => {
 
           <div className="flex flex-col md:flex-row gap-12 items-start justify-between mt-12">
             <p className="text-xl md:text-3xl font-light text-zinc-400 max-w-2xl leading-tight tracking-tight">
-              The Genesis of the Sanctum. We dismantle the <span className="text-accent italic">lead of convention</span> to reveal the hidden gold of infinite possibilities.
+              The foundational laws of the Sanctum. We establish the dual nature of creation—<span className="text-accent italic">dissolving</span> the complex to <span className="text-accent italic">coagulate</span> the essential.
             </p>
             <div className="text-[8px] font-mono text-zinc-700 max-w-[150px] leading-relaxed opacity-50 uppercase border-l border-white/10 pl-6">
               Vision Protocol // 
-              Sector: 01_ORIGIN // 
+              Sector: 02_PRINCIPLES // 
               Depth: INFINITE_VOID
               <br /><br />
               Sanctum Status: INITIALIZING
