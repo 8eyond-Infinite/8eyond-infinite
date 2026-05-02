@@ -54,14 +54,6 @@ export const Footer = () => {
         className="absolute bottom-[-100px] left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent/20 blur-[120px] rounded-full pointer-events-none z-0"
       />
 
-      <div className="absolute inset-0 pointer-events-none">
-        <Ember delay={0} left="20%" size={2} />
-        <Ember delay={1} left="45%" size={1.5} />
-        <Ember delay={2.5} left="70%" size={2.5} />
-        <Ember delay={0.5} left="85%" size={1} />
-        <Ember delay={3.2} left="10%" size={1.5} />
-        <Ember delay={1.8} left="60%" size={2} />
-      </div>
 
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/5 overflow-hidden">
         <motion.div
