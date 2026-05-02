@@ -2,18 +2,23 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { gsap } from "@/lib/gsap";
 
 const LOG_LINES = [
-  "> INITIALIZING_SYSTEM_CORE...",
-  "> LOADING_NEURAL_NETWORK_V8.4...",
-  "> SYNCING_WITH_GLOBAL_NODES_[0x8F]",
-  "> CHECKING_QUANTUM_ENCRYPTION...",
-  "> STATUS:_OPERATIONAL",
-  "> [MISSION]:_TRANSCEND_INFINITE",
-  "> [WARNING]:_LATENCY_IN_SECTOR_7",
-  "> RE-ROUTING_DATA_FLOW...",
-  "> SYSTEM_OPTIMIZED_READY.",
-  "> WAITING_FOR_INITIALIZATION...",
+  "> [PROCESS]:_INITIATING_GREAT_WORK...",
+  "> [STAGE]:_NIGREDO_STABILIZED.",
+  "> [ACTION]:_DISSOLVING_LEGACY_STRUCTURES...",
+  "> [FORMULA]:_SOLVE_ET_COAGULA_V2.0",
+  "> [TRANSMUTE]:_LATENCY_>>_INSTANT_FLOW",
+  "> [SCAN]:_NEURAL_NODES_DETOXIFIED.",
+  "> [SYNC]:_ALIGNING_WITH_INFINITE_SOURCE",
+  "> [STATUS]:_ALCHEMY_IN_PROGRESS...",
+  "> [SUCCESS]:_DIGITAL_GOLD_DISTILLED.",
+  "> [WARNING]:_CHAOS_DETECTED_IN_SECTOR_8",
+  "> [ACTION]:_APPLYING_ORDER_MATRICES...",
+  "> [RESULT]:_PURE_LOGIC_COAGULATED.",
+  "> [SYSTEM]:_BEYOND_INFINITE_OPERATIONAL.",
+  "> WAITING_FOR_NEXT_TRANSMUTATION...",
 ];
 
 const StatBar = ({ label, value }: { label: string; value: number }) => (
@@ -46,6 +51,75 @@ export const Terminal = () => {
 
   const rotateX = useTransform(scrollYProgress, [0, 1], [15, -15]);
   const rotateY = useTransform(scrollYProgress, [0, 1], [-10, 10]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (!containerRef.current) return;
+
+      gsap.to(".terminal-title-1", {
+        x: -60,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+      gsap.to(".terminal-title-2", {
+        x: 60,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
+      // Phase Label Scramble Typewriter
+      const phaseLabel = document.querySelector(".phase-label-05");
+      const phaseCursor = document.querySelector(".phase-cursor-05");
+      const fullText = "[ PHASE_05 // COMMAND_NEXUS ]";
+      const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]//_!@#$%^&*";
+      
+      gsap.to({}, {
+        duration: 3,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          once: true
+        },
+        onUpdate: function() {
+          const progress = this.progress();
+          const currentLength = Math.floor(progress * fullText.length);
+          const revealedText = fullText.slice(0, currentLength);
+          
+          if (progress < 1) {
+            const randomChar = scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+            if (phaseLabel) phaseLabel.textContent = revealedText + randomChar;
+            if (phaseCursor) gsap.set(phaseCursor, { opacity: 1 });
+          } else {
+            if (phaseLabel) {
+              phaseLabel.textContent = fullText;
+              if (phaseCursor) {
+                gsap.to(phaseCursor, {
+                  opacity: 0,
+                  duration: 0.5,
+                  repeat: -1,
+                  yoyo: true,
+                  ease: "power2.inOut"
+                });
+              }
+            }
+          }
+        }
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   useEffect(() => {
     if (currentLineIndex < LOG_LINES.length) {
@@ -85,15 +159,34 @@ export const Terminal = () => {
       <div className="mx-auto max-w-[1200px] relative z-20">
         {/* Monumental Header */}
         <div className="mb-32">
-          <span className="text-[12px] font-mono text-accent tracking-[0.5em] uppercase block mb-6">
-            [ PHASE_03 // COMMAND_NEXUS ]
-          </span>
-          <h2 className="text-5xl md:text-8xl font-black tracking-tighter text-white uppercase italic leading-[0.9]">
-            System <br /> 
-            <span className="text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.3)" }}>
-              Terminal.
+          <div className="flex items-center gap-4 mb-8 w-full">
+            <div className="flex items-center font-mono text-accent whitespace-nowrap">
+              <span className="text-[12px] tracking-[0.6em] uppercase phase-label-05">
+                {/* GSAP will fill this */}
+              </span>
+              <span className="text-[12px] phase-cursor-05 opacity-0">_</span>
+            </div>
+            <div className="h-px flex-1 bg-gradient-to-r from-accent/50 to-transparent" />
+          </div>
+          <h2 className="text-5xl md:text-9xl font-black tracking-[-0.08em] text-white uppercase italic leading-[0.9] overflow-visible">
+            <span className="inline-block terminal-title-1">Alchemical</span> <br /> 
+            <span className="inline-block terminal-title-2 text-transparent ml-[10%] md:ml-[20%]" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.15)" }}>
+              Nexus.
             </span>
           </h2>
+
+          <div className="flex flex-col md:flex-row gap-12 items-start justify-between mt-12">
+            <p className="text-xl md:text-3xl font-light text-zinc-400 max-w-2xl leading-tight tracking-tight">
+              The interface of the Great Work. Here, we execute the protocols of <span className="text-accent italic">conscious creation</span>, bridging the void between thought and reality.
+            </p>
+            <div className="text-[8px] font-mono text-zinc-700 max-w-[150px] leading-relaxed opacity-50 uppercase border-l border-white/10 pl-6">
+              Command Protocol // 
+              Root: 0x8_INFINITE // 
+              Kernel: STABLE_FLUX
+              <br /><br />
+              Nexus Status: ACTIVE
+            </div>
+          </div>
         </div>
 
         {/* 3D Terminal Container */}
@@ -103,14 +196,14 @@ export const Terminal = () => {
         >
           {/* Left HUD Panel */}
           <div className="lg:col-span-3 border-r border-white/5 bg-white/[0.02] p-8 hidden lg:block">
-            <div className="text-[10px] font-mono text-accent mb-8 tracking-widest uppercase">System_Health</div>
-            <StatBar label="CPU_CORE" value={42} />
-            <StatBar label="MEM_SYNC" value={68} />
-            <StatBar label="NET_FLUX" value={91} />
+            <div className="text-[10px] font-mono text-accent mb-8 tracking-widest uppercase">Transmutation_Metrics</div>
+            <StatBar label="ETHER_STABILITY" value={88} />
+            <StatBar label="SOUL_COHESION" value={74} />
+            <StatBar label="VOID_RESONANCE" value={12} />
             <div className="mt-12 pt-12 border-t border-white/5 text-[8px] font-mono text-zinc-600 space-y-4 uppercase tracking-[0.2em]">
-               <div>Kernel: v8.0.4-LTS</div>
-               <div>Uptime: 1,204:54:12</div>
-               <div>Auth: Genesis_01</div>
+               <div>Protocol: SOLVE_ET_COAGULA</div>
+               <div>Uptime: INFINITE_STREAM</div>
+               <div>Auth: Master_Alchemist</div>
             </div>
           </div>
 
@@ -134,55 +227,51 @@ export const Terminal = () => {
               className="p-8 h-[450px] overflow-y-auto font-mono text-[11px] leading-relaxed scrollbar-hide bg-black/40"
             >
               <div className="flex flex-col gap-2">
-                {displayedLogs.map((line, i) => (
-                  <motion.div
+                {displayedLogs.map((log, i) => (
+                  <motion.div 
                     key={i}
-                    initial={{ opacity: 0, x: -5 }}
+                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className={`${line.includes("WARNING") ? "text-yellow-500" : line.includes("OPERATIONAL") || line.includes("READY") ? "text-accent" : "text-zinc-400"}`}
+                    className={log.includes('[SUCCESS]') ? 'text-accent' : log.includes('[WARNING]') ? 'text-red-500' : 'text-zinc-400'}
                   >
-                    <span className="text-zinc-700 mr-2 opacity-50">{new Date().toLocaleTimeString()}</span>
-                    {line}
+                    {log}
                   </motion.div>
                 ))}
-                <motion.div
+                <motion.span 
                   animate={{ opacity: [1, 0] }}
                   transition={{ duration: 0.8, repeat: Infinity }}
-                  className="w-2 h-4 bg-accent mt-1"
+                  className="inline-block w-2 h-4 bg-accent mt-1"
                 />
               </div>
             </div>
-
-            {/* Scanline Overlay */}
-            <div className="absolute inset-0 pointer-events-none opacity-[0.05]">
-              <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.5)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
-            </div>
           </div>
 
-          {/* Right Data Viz Panel */}
-          <div className="lg:col-span-3 border-l border-white/5 bg-white/[0.02] p-8 hidden lg:block">
-             <div className="text-[10px] font-mono text-accent mb-8 tracking-widest uppercase">Global_Flux</div>
-             <div className="h-40 flex items-end gap-1 mb-8">
-                {fluxData.map((data, i) => (
-                  <motion.div 
-                    key={i}
-                    animate={{ height: [data.h1, data.h2] }}
-                    transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
-                    className="flex-1 bg-accent/20 border-t border-accent"
-                  />
+          {/* Right Data Stream Panel */}
+          <div className="lg:col-span-3 border-l border-white/5 bg-white/[0.01] p-6 hidden lg:flex flex-col">
+             <div className="text-[10px] font-mono text-zinc-600 mb-6 tracking-widest uppercase">Flux_Oscillations</div>
+             <div className="flex-1 flex flex-col gap-1">
+                {fluxData.map((d, i) => (
+                  <div key={i} className="flex gap-1 h-3 items-end">
+                    <motion.div 
+                      animate={{ height: [d.h1, d.h2, d.h1] }}
+                      transition={{ duration: 2 + i*0.1, repeat: Infinity }}
+                      className="flex-1 bg-white/[0.03] border-t border-white/10"
+                    />
+                    <motion.div 
+                      animate={{ height: [d.h2, d.h1, d.h2] }}
+                      transition={{ duration: 1.5 + i*0.1, repeat: Infinity }}
+                      className="flex-1 bg-accent/10 border-t border-accent/30"
+                    />
+                  </div>
                 ))}
              </div>
-             <div className="text-[8px] font-mono text-zinc-500 uppercase leading-loose">
-                [ COORDINATES ]: 43.12 N<br />
-                [ TARGET ]: INFINITE_TRANSIT<br />
-                [ ENCRYPTION ]: QUANTUM_8<br />
-                [ STATUS ]: SYNCED
+             <div className="mt-6 text-[7px] font-mono text-zinc-700 leading-tight">
+                [ SCANNING_SECTOR_8_FOR_ANOMALIES... ]
+                <br />
+                [ ENCRYPTING_DATA_STREAM... ]
              </div>
           </div>
         </motion.div>
-
-        {/* Ambient Floor Glow */}
-        <div className="absolute bottom-40 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-accent/10 blur-[120px] pointer-events-none" />
       </div>
     </section>
   );

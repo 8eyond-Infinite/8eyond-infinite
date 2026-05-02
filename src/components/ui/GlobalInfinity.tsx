@@ -24,47 +24,37 @@ export const GlobalInfinity = () => {
     const path = pathRef.current;
     const firePath = fireRef.current;
 
-    // Lấy chiều dài thực tế của path
     const pathLength = path.getTotalLength();
-    console.log("GlobalInfinity: Path Length calculated:", pathLength);
 
-    // --- PHASE 1: PRELOADER STATE (Centered) ---
-    gsap.set(container, { 
-      x: 0, 
-      y: 0, 
-      scale: 0.5, 
+    gsap.set(container, {
+      x: 0,
+      y: 0,
+      scale: 0.5,
       rotate: 0,
-      opacity: 1 
-    });
-    
-    // Khởi tạo dasharray chuẩn theo chiều dài thực
-    gsap.set(path, { 
-      strokeDasharray: pathLength, 
-      strokeDashoffset: pathLength 
+      opacity: 1
     });
 
-    // Lắng nghe tiến trình vẽ từ Preloader
+    gsap.set(path, {
+      strokeDasharray: pathLength,
+      strokeDashoffset: pathLength
+    });
     const handleProgress = (e: any) => {
       const progress = e.detail;
-      console.log("GlobalInfinity: Progress received:", progress);
       const offset = pathLength - (pathLength * (progress / 100));
-      
-      gsap.to(path, { 
-        strokeDashoffset: offset, 
+
+      gsap.to(path, {
+        strokeDashoffset: offset,
         duration: 0.2,
         ease: "power1.out"
       });
     };
 
-    // Lắng nghe lệnh hoàn tất để "bay" về Hero
     const handleComplete = () => {
-      console.log("GlobalInfinity: Received alchemist:complete - Flying to Hero position...");
       setIsLoaded(true);
-      
+
       const tl = gsap.timeline({
         onComplete: () => {
-          console.log("GlobalInfinity: Flight complete - Now submerging to Sandwich layer (z-10)");
-          setCurrentZIndex(10); // Chỉ hạ z-index sau khi đã bay về vị trí Hero
+          setCurrentZIndex(10);
           buildJourney();
         }
       });
@@ -74,7 +64,7 @@ export const GlobalInfinity = () => {
         y: "10vh",
         scale: 1.1,
         rotate: -10,
-        duration: 1.8, 
+        duration: 1.8,
         ease: "expo.inOut"
       });
     };
@@ -82,7 +72,6 @@ export const GlobalInfinity = () => {
     window.addEventListener("alchemist:progress", handleProgress);
     window.addEventListener("alchemist:complete", handleComplete);
 
-    // --- PHASE 2: SCROLL JOURNEY ---
     const buildJourney = () => {
       ScrollTrigger.refresh();
 
@@ -93,7 +82,9 @@ export const GlobalInfinity = () => {
         { id: "projects", x: "-20%", y: "-10vh", rotate: 180, scale: 1.3 },
         { id: "tech", x: "20%", y: "10vh", rotate: 220, scale: 0.8 },
         { id: "terminal", x: "0%", y: "5vh", rotate: 280, scale: 1.1 },
-        { id: "team", x: "-22vw", y: "0vh", rotate: 360, scale: 1.2 }
+        { id: "team-trigger", x: "-15vw", y: "-15vh", rotate: 320, scale: 1.4 },
+        { id: "team", x: "-25vw", y: "35vh", rotate: 360, scale: 1.2 },
+        { id: "footer", x: "0%", y: "45vh", rotate: 540, scale: 0 }
       ];
 
       const masterTl = gsap.timeline({
@@ -111,31 +102,32 @@ export const GlobalInfinity = () => {
         const targetEl = document.getElementById(config.id);
         if (!targetEl) return;
 
-        masterTl.to(container, {
+        masterTl.to(containerRef.current, {
           x: config.x,
           y: config.y,
           rotate: config.rotate,
           scale: config.scale,
-          ease: "power1.inOut",
+          opacity: config.id === "footer" ? 0 : 1,
+          duration: config.id === "team-trigger" ? 3 : 1,
+          ease: "none"
         });
-
-        if (config.id === "team") {
-          masterTl.to(path, { stroke: "#ffffff", strokeWidth: 3, duration: 0.2 }, "<");
-          masterTl.to(container, { y: "-150vh", ease: "power2.in", duration: 0.5 });
-        }
       });
 
       const teamEl = document.getElementById("team");
       if (teamEl) {
         ScrollTrigger.create({
           trigger: teamEl,
-          start: "top center",
+          start: "top 30%",
           onEnter: () => {
             setIsBurning(true);
+            setCurrentZIndex(100);
+            gsap.to(path, { stroke: "#ff3300", duration: 1.5, ease: "power2.inOut" });
             gsap.to(firePath, { opacity: 1, duration: 1.5, ease: "power2.inOut" });
           },
           onLeaveBack: () => {
             setIsBurning(false);
+            setCurrentZIndex(10);
+            gsap.to(path, { stroke: "#fbbf24", duration: 1, ease: "power2.inOut" });
             gsap.to(firePath, { opacity: 0, duration: 1, ease: "power2.inOut" });
           },
         });
@@ -150,7 +142,7 @@ export const GlobalInfinity = () => {
   }, { scope: containerRef });
 
   return (
-    <div 
+    <div
       ref={containerRef}
       style={{ zIndex: currentZIndex }}
       className="fixed inset-0 pointer-events-none flex items-center justify-center overflow-visible"
@@ -169,7 +161,6 @@ export const GlobalInfinity = () => {
 
       <div className="relative w-64 h-32 md:w-[450px] md:h-[225px] overflow-visible">
         <svg viewBox="0 0 200 100" className="w-full h-full overflow-visible">
-          {/* Lớp bóng tỏa mỏng theo hình dáng dấu vô cực */}
           <path
             d="M50,50 C50,20 80,20 100,50 C120,80 150,80 150,50 C150,20 120,20 100,50 C80,80 50,80 50,50 Z"
             fill="none"
@@ -177,7 +168,7 @@ export const GlobalInfinity = () => {
             strokeWidth="3"
             className="opacity-20 blur-[4px]"
           />
-          
+
           <path
             ref={pathRef}
             d="M50,50 C50,20 80,20 100,50 C120,80 150,80 150,50 C150,20 120,20 100,50 C80,80 50,80 50,50 Z"
@@ -186,7 +177,7 @@ export const GlobalInfinity = () => {
             strokeWidth="1.5"
             className="drop-shadow-[0_0_5px_#fbbf24]"
           />
-          
+
           <path
             ref={fireRef}
             d="M50,50 C50,20 80,20 100,50 C120,80 150,80 150,50 C150,20 120,20 100,50 C80,80 50,80 50,50 Z"
@@ -196,8 +187,6 @@ export const GlobalInfinity = () => {
             className="fire-path"
             style={{ opacity: 0 }}
           />
-          
-          {/* Hạt năng lượng sắc nét */}
           <circle r="1.5" fill="white" className="shadow-[0_0_10px_#fff]">
             <animateMotion
               dur="2.5s"

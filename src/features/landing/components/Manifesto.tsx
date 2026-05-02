@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { gsap } from "@/lib/gsap";
 
 const ManifestoLine = ({ text, delay }: { text: string; delay: number }) => {
   return (
@@ -41,6 +42,73 @@ export const Manifesto = () => {
   const rotateCircle = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const scale8 = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1.1, 0.9]);
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (!sectionRef.current) return;
+
+      gsap.to(".manifesto-title-1", {
+        x: -60,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+      gsap.to(".manifesto-title-2", {
+        x: 60,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
+      // Phase Label Scramble Typewriter
+      const phaseLabel = document.querySelector(".phase-label-02");
+      const phaseCursor = document.querySelector(".phase-cursor-02");
+      const fullText = "[ PHASE_02 // THE_DECLARATION ]";
+      const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]//_!@#$%^&*";
+      
+      gsap.to({}, {
+        duration: 3,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          once: true
+        },
+        onUpdate: function() {
+          const progress = this.progress();
+          const currentLength = Math.floor(progress * fullText.length);
+          const revealedText = fullText.slice(0, currentLength);
+          
+          if (progress < 1) {
+            const randomChar = scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+            if (phaseLabel) phaseLabel.textContent = revealedText + randomChar;
+            if (phaseCursor) gsap.set(phaseCursor, { opacity: 1 });
+          } else {
+            if (phaseLabel) phaseLabel.textContent = fullText;
+            if (phaseCursor) {
+              gsap.to(phaseCursor, {
+                opacity: 0,
+                duration: 0.5,
+                repeat: -1,
+                yoyo: true,
+                ease: "power2.inOut"
+              });
+            }
+          }
+        }
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section 
       ref={sectionRef} 
@@ -72,20 +140,21 @@ export const Manifesto = () => {
       </div>
 
       {/* Layer 2: Content Layer (In front of Infinity) */}
-      <motion.div 
-        className="mx-auto max-w-[1400px] w-full flex flex-col gap-4 relative z-20"
-      >
+      <div className="mx-auto max-w-[1400px] w-full flex flex-col gap-4 relative z-20">
         <div className="mb-24 relative">
           <div className="flex items-center gap-4 mb-8">
-            <span className="text-[12px] font-mono text-accent tracking-[0.6em] uppercase">
-              [ THE_MAGNUM_OPUS // STAGE_ALPHA ]
-            </span>
+            <div className="flex items-center font-mono text-accent">
+              <span className="text-[12px] tracking-[0.6em] uppercase phase-label-02">
+                {/* GSAP will fill this */}
+              </span>
+              <span className="text-[12px] phase-cursor-02 opacity-0">_</span>
+            </div>
             <div className="h-px flex-1 bg-gradient-to-r from-accent/50 to-transparent" />
           </div>
 
-          <h2 className="text-6xl md:text-[10rem] font-black tracking-[-0.06em] text-white uppercase italic leading-[0.8] mb-12">
-            DIGITAL <br /> 
-            <span className="text-transparent" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.4)" }}>
+          <h2 className="text-6xl md:text-9xl font-black tracking-[-0.08em] text-white uppercase italic leading-[0.9] mb-12 overflow-visible">
+            <span className="inline-block manifesto-title-1">DIGITAL</span> <br /> 
+            <span className="inline-block manifesto-title-2 text-transparent ml-[10%] md:ml-[20%]" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.15)" }}>
                ALCHEMY.
             </span>
           </h2>
@@ -100,52 +169,12 @@ export const Manifesto = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2 group/lines">
-          <ManifestoLine delay={0.1} text="THE CALCINATION OF CODE" />
-          <ManifestoLine delay={0.2} text="THE DISSOLUTION OF BOUNDARIES" />
-          <ManifestoLine delay={0.3} text="THE COAGULATION OF LOGIC" />
-          <ManifestoLine delay={0.4} text="THE TRANSMUTATION OF REALITY" />
+        <div className="flex flex-col">
+          <ManifestoLine text="Domain-Driven Excellence" delay={0.1} />
+          <ManifestoLine text="Metaphysical Aesthetics" delay={0.2} />
+          <ManifestoLine text="Immutable Reality" delay={0.3} />
+          <ManifestoLine text="Infinite Scalability" delay={0.4} />
         </div>
-
-        <div className="mt-40 grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-white/10 pt-16 relative">
-          {/* Phase 01: Nigredo */}
-          <div className="flex flex-col gap-6 group/phase cursor-none">
-             <div className="flex items-baseline gap-4">
-                <span className="text-3xl font-serif italic text-zinc-800 group-hover/phase:text-white transition-colors duration-500">I.</span>
-                <span className="text-accent font-mono text-[10px] tracking-[0.5em] uppercase group-hover/phase:text-yellow-500 transition-colors duration-500">Nigredo</span>
-             </div>
-             <p className="text-xs text-zinc-600 font-mono uppercase tracking-widest leading-relaxed group-hover/phase:text-zinc-400 transition-colors">
-               The Blackness. Breaking down the complex structures of the finite world to extract the raw essence of code.
-             </p>
-          </div>
-
-          {/* Phase 02: Albedo */}
-          <div className="flex flex-col gap-6 group/phase cursor-none">
-             <div className="flex items-baseline gap-4">
-                <span className="text-3xl font-serif italic text-zinc-800 group-hover/phase:text-white transition-colors duration-500">II.</span>
-                <span className="text-accent font-mono text-[10px] tracking-[0.5em] uppercase group-hover/phase:text-yellow-500 transition-colors duration-500">Albedo</span>
-             </div>
-             <p className="text-xs text-zinc-600 font-mono uppercase tracking-widest leading-relaxed group-hover/phase:text-zinc-400 transition-colors">
-               The Whiteness. Purifying logic, removing the noise of chaos, and reaching the state of architectural crystalline clarity.
-             </p>
-          </div>
-
-          {/* Phase 03: Rubedo */}
-          <div className="flex flex-col gap-6 group/phase cursor-none">
-             <div className="flex items-baseline gap-4">
-                <span className="text-3xl font-serif italic text-zinc-800 group-hover/phase:text-white transition-colors duration-500">III.</span>
-                <span className="text-accent font-mono text-[10px] tracking-[0.5em] uppercase group-hover/phase:text-yellow-500 transition-colors duration-500">Rubedo</span>
-             </div>
-             <p className="text-xs text-zinc-600 font-mono uppercase tracking-widest leading-relaxed group-hover/phase:text-zinc-400 transition-colors">
-               The Redness. The final stage of transmutation. The birth of the Infinite Protocol. Matter becomes spirit, logic becomes legacy.
-             </p>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Latin Background Text */}
-      <div className="absolute bottom-20 left-10 text-[6vh] font-serif italic text-white/[0.02] pointer-events-none select-none uppercase tracking-tighter vertical-text z-0">
-        Non ducor, duco // Solve et Coagula
       </div>
     </section>
   );

@@ -45,20 +45,15 @@ const Ember = ({ delay, left, size }: { delay: number; left: string; size: numbe
 
 export const Footer = () => {
   return (
-    <footer className="relative bg-black pt-32 pb-16 px-6 overflow-hidden border-t border-white/5">
-      {/* --- THE WOW GLOW SYSTEM --- */}
-
-      {/* 1. Deep Amber Base */}
+    <footer id="footer" className="relative bg-black pt-32 pb-16 px-6 overflow-hidden border-t border-white/5">
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-[radial-gradient(ellipse_at_bottom,rgba(251,191,36,0.08)_0%,transparent_70%)] pointer-events-none z-0" />
 
-      {/* 2. Intense Golden Core */}
       <motion.div
         animate={{ opacity: [0.4, 0.6, 0.4], scale: [1, 1.1, 1] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         className="absolute bottom-[-100px] left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent/20 blur-[120px] rounded-full pointer-events-none z-0"
       />
 
-      {/* 3. Rising Embers (Bụi vàng giả kim) */}
       <div className="absolute inset-0 pointer-events-none">
         <Ember delay={0} left="20%" size={2} />
         <Ember delay={1} left="45%" size={1.5} />
@@ -68,7 +63,6 @@ export const Footer = () => {
         <Ember delay={1.8} left="60%" size={2} />
       </div>
 
-      {/* Top Shimmer Line - Gold Edition */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/5 overflow-hidden">
         <motion.div
           animate={{ x: ["-100%", "100%"] }}
