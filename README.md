@@ -1,36 +1,19 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 8eyond-Infinite // [ THE_COLLECTIVE ]
 
-## Getting Started
+> **"We transform the lead of raw logic into the gold of infinite reality."**
 
-First, run the development server:
+**8eyond-Infinite** is an alchemical collective dedicated to engineering the foundational layers of post-infinite computation. We exist to transmute raw digital logic into the architecture of a new reality.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔒 Architectural Integrity // [ BẢO MẬT TUYỆT ĐỐI ]
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**This manifestation is a proprietary digital entity.** 
+Unauthorized access or duplication of this forge is strictly prohibited. It exists only in its intended alignment.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Thực thể này là tài sản kỹ thuật số độc quyền.**
+Mọi hành vi truy cập hoặc sao chép trái phép đều bị nghiêm cấm. Nó chỉ tồn tại trong đúng sự sắp đặt của nó.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**© 2026 8eyond_Infinite
