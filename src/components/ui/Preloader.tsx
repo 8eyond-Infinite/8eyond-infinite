@@ -54,12 +54,18 @@ export const Preloader = () => {
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const interval = setInterval(() => {
       setProgress((prev) => {
-        // Tốc độ ánh sáng
-        const next = prev >= 100 ? 100 : prev + 5;
+        // Tốc độ ánh sáng - Mobile nhanh gấp đôi
+        const step = isMobile ? 10 : 5;
+        const next = prev >= 100 ? 100 : prev + step;
         window.dispatchEvent(new CustomEvent("alchemist:progress", { detail: next }));
         if (next >= 100) {
           clearInterval(interval);
@@ -67,9 +73,12 @@ export const Preloader = () => {
         }
         return next;
       });
-    }, 10); // Interval cực ngắn
-    return () => clearInterval(interval);
-  }, []);
+    }, 10);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, [isMobile]);
 
   const handleLineComplete = () => {
     const nextIndex = currentLineIndex + 1;

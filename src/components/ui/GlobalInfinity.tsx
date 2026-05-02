@@ -138,7 +138,7 @@ export const GlobalInfinity = () => {
     <div
       ref={outerRef}
       style={{ zIndex: currentZIndex }}
-      className="fixed inset-0 pointer-events-none flex items-center justify-center overflow-visible"
+      className="fixed inset-0 pointer-events-none hidden md:flex items-center justify-center overflow-visible"
     >
       <div ref={innerRef} className="relative w-64 h-32 md:w-[450px] md:h-[225px] overflow-visible">
         <svg viewBox="0 0 200 100" className="w-full h-full overflow-visible">
