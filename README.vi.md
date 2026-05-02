@@ -11,7 +11,7 @@
 ## 🔒 Bảo Mật Tuyệt Đối
 
 **Thực thể này là tài sản kỹ thuật số độc quyền.**
-Mọi hành vi truy cập hoặc sao chép trái phép "lò rèn" này đều bị nghiêm cấm. Nó chỉ tồn tại trong đúng sự sắp đặt của nó.
+Mọi hành vi truy cập hoặc sao chép trái phép thực thể này đều bị nghiêm cấm. Nó chỉ tồn tại trong đúng sự sắp đặt của nó.
 
 ---
 

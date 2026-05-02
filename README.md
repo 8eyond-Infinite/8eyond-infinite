@@ -11,7 +11,7 @@
 ## 🔒 Architectural Integrity
 
 **This manifestation is a proprietary digital entity.** 
-Unauthorized access or duplication of this forge is strictly prohibited. It exists only in its intended alignment.
+Unauthorized access or duplication of this manifestation is strictly prohibited. It exists only in its intended alignment.
 
 ---
 
