@@ -16,3 +16,8 @@ Mọi hành vi truy cập hoặc sao chép trái phép thực thể này đều 
 ---
 
 **© 2026 8eyond_Infinite**
+
+---
+
+**Bậc Giả Kim** // [**trhgatu**](https://github.com/trhgatu)  
+*Sự hội tụ của hủy diệt và kiến tạo, hỗn loạn và trật tự, hữu hạn và vô tận.*

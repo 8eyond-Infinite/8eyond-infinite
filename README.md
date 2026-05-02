@@ -16,3 +16,8 @@ Unauthorized access or duplication of this manifestation is strictly prohibited.
 ---
 
 **© 2026 8eyond_Infinite**
+
+---
+
+**The Alchemist** // [**trhgatu**](https://github.com/trhgatu)  
+*Convergence of destruction and creation, chaos and order, finite and infinite.*
