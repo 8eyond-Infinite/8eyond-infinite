@@ -16,7 +16,6 @@ export const GlobalInfinity = () => {
   const innerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const fireRef = useRef<SVGPathElement>(null);
-  const [isBurning, setIsBurning] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentZIndex, setCurrentZIndex] = useState(20000);
 
@@ -26,7 +25,6 @@ export const GlobalInfinity = () => {
     const outer = outerRef.current;
     const inner = innerRef.current;
     const path = pathRef.current;
-    const firePath = fireRef.current;
 
     const pathLength = path.getTotalLength();
 
@@ -127,27 +125,6 @@ export const GlobalInfinity = () => {
           ease: "power1.inOut"
         });
       });
-
-      // --- CHỈ DÙNG TRIGGER ĐỂ KÍCH HOẠT HIỆU ỨNG (KHÔNG TOUCH SCALE) ---
-      const teamSection = document.getElementById("team");
-      if (teamSection) {
-        ScrollTrigger.create({
-          trigger: teamSection,
-          start: "top 40%",
-          onEnter: () => {
-            setIsBurning(true);
-            setCurrentZIndex(100);
-            gsap.to(path, { stroke: "#ff3300", duration: 1.5, ease: "power2.inOut" });
-            gsap.to(firePath, { opacity: 1, duration: 1.5, ease: "power2.inOut" });
-          },
-          onLeaveBack: () => {
-            setIsBurning(false);
-            setCurrentZIndex(10);
-            gsap.to(path, { stroke: "#fbbf24", duration: 1, ease: "power2.inOut" });
-            gsap.to(firePath, { opacity: 0, duration: 1, ease: "power2.inOut" });
-          },
-        });
-      }
     };
 
     return () => {
@@ -163,18 +140,6 @@ export const GlobalInfinity = () => {
       style={{ zIndex: currentZIndex }}
       className="fixed inset-0 pointer-events-none flex items-center justify-center overflow-visible"
     >
-      <style jsx global>{`
-        @keyframes infinity-fire-flicker {
-          0%, 100% {
-            filter: drop-shadow(0 0 2px #fff) drop-shadow(0 -1px 3px #ff3) drop-shadow(1px -2px 5px #f90) drop-shadow(-1px -5px 7px #f60) drop-shadow(1px -8px 10px #f30);
-          }
-          50% {
-            filter: drop-shadow(0 0 2px #fff) drop-shadow(0 -2px 5px #ff3) drop-shadow(2px -4px 8px #f90) drop-shadow(-2px -8px 10px #f60) drop-shadow(2px -12px 15px #f30);
-          }
-        }
-        .fire-path { animation: infinity-fire-flicker 2s infinite alternate ease-in-out; }
-      `}</style>
-
       <div ref={innerRef} className="relative w-64 h-32 md:w-[450px] md:h-[225px] overflow-visible">
         <svg viewBox="0 0 200 100" className="w-full h-full overflow-visible">
           <path
@@ -192,16 +157,6 @@ export const GlobalInfinity = () => {
             stroke="#fbbf24"
             strokeWidth="1.5"
             className="drop-shadow-[0_0_5px_#fbbf24]"
-          />
-
-          <path
-            ref={fireRef}
-            d="M50,50 C50,20 80,20 100,50 C120,80 150,80 150,50 C150,20 120,20 100,50 C80,80 50,80 50,50 Z"
-            fill="none"
-            stroke="white"
-            strokeWidth="2.2"
-            className="fire-path"
-            style={{ opacity: 0 }}
           />
 
           <circle r="1.5" fill="white" className="shadow-[0_0_10px_#fff]">

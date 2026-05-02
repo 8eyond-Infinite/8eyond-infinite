@@ -82,10 +82,10 @@ export const Team = () => {
         }
       });
 
-      if (portraitRef.current) {
+      if (containerRef.current) {
         ScrollTrigger.create({
-          trigger: portraitRef.current,
-          start: "top 60%",
+          trigger: containerRef.current,
+          start: "top 50%", // Vừa cuộn đến khoảng giữa là bùng nổ hiệu ứng
           onEnter: () => setIsAwakened(true),
           onLeaveBack: () => setIsAwakened(false),
         });

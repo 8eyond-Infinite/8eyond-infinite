@@ -25,9 +25,9 @@ const TypewriterLine = ({ text, onComplete }: { text: string; onComplete: () => 
       i++;
       if (i >= text.length) {
         clearInterval(timer);
-        setTimeout(onComplete, 30); // Giảm delay hoàn tất dòng
+        setTimeout(onComplete, 50); // Tăng nhẹ delay để mobile xử lý kịp
       }
-    }, 5); // Tốc độ gõ siêu nhanh
+    }, 10); // 10ms là đủ nhanh và ổn định hơn 5ms
     return () => clearInterval(timer);
   }, [text, onComplete]);
 
@@ -72,21 +72,21 @@ export const Preloader = () => {
   }, []);
 
   const handleLineComplete = () => {
-    if (currentLineIndex < TERMINAL_LINES.length - 1) {
-      setCurrentLineIndex((prev) => prev + 1);
-      setActiveLines((prev) => [...prev, TERMINAL_LINES[currentLineIndex]]);
+    const nextIndex = currentLineIndex + 1;
+    if (nextIndex < TERMINAL_LINES.length) {
+      setCurrentLineIndex(nextIndex);
+      setActiveLines((prev) => [...prev, TERMINAL_LINES[nextIndex]]);
     } else {
       // BẮT ĐẦU CHUỖI EXIT
       window.dispatchEvent(new CustomEvent("alchemist:complete"));
       
-      // Dùng GSAP để biến mất mượt mà
       if (containerRef.current) {
         gsap.to(containerRef.current, {
           opacity: 0,
-          scale: 1.1,
-          filter: "blur(40px)",
-          duration: 2,
-          ease: "expo.inOut",
+          scale: 1.05,
+          filter: "blur(15px)", // Giảm từ 40px xuống 15px để mobile ko bị lag
+          duration: 1.5,
+          ease: "power2.inOut",
           onComplete: () => setIsVisible(false)
         });
       }
